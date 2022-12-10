@@ -17,11 +17,26 @@ let winningSets = [
   [4, 8, 12, 16, 20]
 ];
 
-function checkForWin() {
-  foundArray = foundArray.toString()
-  console.log(foundArray)
+function checkForWin(found, itemKey) {
+  console.log('found in checkForWin: ', found);
+  if (found === true && !foundArray.includes(found)) {
+    foundArray.push(itemKey);
+    console.log(foundArray)
+  }
+  else if (found === false) {
+    console.log('already there: ', itemKey, foundArray);
+    let foundIndex = foundArray.indexOf(itemKey);
+    console.log(foundIndex)
+    foundArray.splice(foundIndex, 1);
+    console.log('after splice: ', foundArray)
+  }
+  // const keyIndex = foundArray.length === 0 ? 0 : foundArray.findIndex(itemKey);
+
   winningSets.forEach(winningSet => {
-    winningSet = winningSet.toString();
+    // console.log(foundArray.length);
+    // console.log(winningSet.length)
+    // console.log('found after: ', found);
+
   //   if (foundArray.toString().includes(winningSet.toString()));
   //     console.log('you win! ', foundArray, winningSet);
   })
@@ -34,10 +49,7 @@ function Square(props) {
       className={found === false ? "Square" : "Square-selected"}
       onClick={() => {
         setFound(!found);
-        (found === false ? foundArray.push(props.itemKey) : foundArray.splice(props.itemKey, 1));
-        if (foundArray.length > 4) {
-          checkForWin()
-        }
+        checkForWin(!found, props.itemKey)
       }
     }
     >
