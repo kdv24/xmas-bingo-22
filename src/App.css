@@ -64,6 +64,7 @@ body {
 
   .App {
     margin: auto;
+    padding-top: 20px;
   }
 
   .grid-5-by-5 {
