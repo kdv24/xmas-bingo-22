@@ -18,27 +18,24 @@ let winningSets = [
 ];
 
 function checkForWin(found, itemKey) {
-  console.log('found in checkForWin: ', found);
   if (found === true && !foundArray.includes(found)) {
     foundArray.push(itemKey);
-    console.log(foundArray)
   }
   else if (found === false) {
-    console.log('already there: ', itemKey, foundArray);
     let foundIndex = foundArray.indexOf(itemKey);
-    console.log(foundIndex)
     foundArray.splice(foundIndex, 1);
-    console.log('after splice: ', foundArray)
   }
-  // const keyIndex = foundArray.length === 0 ? 0 : foundArray.findIndex(itemKey);
 
-  winningSets.forEach(winningSet => {
-    // console.log(foundArray.length);
-    // console.log(winningSet.length)
-    // console.log('found after: ', found);
-
-  //   if (foundArray.toString().includes(winningSet.toString()));
-  //     console.log('you win! ', foundArray, winningSet);
+  winningSets.forEach((winningSet) => {
+    let count = 0;
+    winningSet.forEach((winningItem) => {
+      if (foundArray.includes(winningItem)) {
+        count += 1;
+      }
+    });
+    if (count >= 5) {
+      alert('You win!');
+    }
   })
 }
 
