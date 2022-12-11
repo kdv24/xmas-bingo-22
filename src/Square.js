@@ -17,7 +17,6 @@ const winningSets = [
   [4, 8, 12, 16, 20]
 ];
 
-let snowy = true;
 function checkForWin(found, itemKey) {
   if (found === true && !foundArray.includes(found)) {
     foundArray.push(itemKey);
