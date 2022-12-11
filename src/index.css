@@ -1,6 +1,21 @@
+@font-face {
+  font-family: 'Red-Christmas';
+  src: local('Red-Christmas'), url(./fonts/Red-Christmas.otf) format(opentype)
+}
+
+@font-face {
+  font-family: 'MountainsofChristmas';
+  src: local('MountainsofChristmas'), url(./fonts/MountainsofChristmas.ttf) format(truetype)
+}
+
+@font-face {
+  font-family: 'CursiveSans';
+  src: local('CursiveSans'), url(./fonts/CursiveSans-3e6z.ttf) format(truetype)
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;

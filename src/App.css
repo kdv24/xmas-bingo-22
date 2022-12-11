@@ -1,14 +1,23 @@
 body {
-  background-image: linear-gradient(#BB2528, red, salmon);
+  height: 100vh;
 }
 
 .App {
+  background-image: linear-gradient(#BB2528, red, salmon);
   text-align: center;
-  margin-top: 1rem;
-  margin: 20px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  height: 100vh;
 }
+
+.snow {
+  background-image: url('../public/red-snow.png');
+  background-repeat: no-repeat;
+  background-size: cover, contain;
+  height: 100vh;
+}
+
 
 .App-header {
   display: flex;
@@ -16,7 +25,9 @@ body {
   align-items: center;
   justify-items: center;
   margin-bottom: 1rem;
-  font-size: 2rem;
+  margin-top: 2rem;
+  font-family: Red-Christmas;
+  font-size: 8rem;
   color: white;
 }
 
@@ -25,6 +36,9 @@ body {
 }
 
 .grid-5-by-5 {
+  margin-top: 1rem;
+  margin: 20px;
+
   /* Activate grid layout */
   display: grid;
 
@@ -44,7 +58,6 @@ body {
   background-color: beige;
   border: 1px solid rgba(128, 128, 128, 0.5);
   aspect-ratio: 1/1;
-  /* font-size: 1rem; */
 }
 
 .Square-selected {
@@ -53,18 +66,21 @@ body {
   background-image: linear-gradient(#146B38, lightgreen);
   border: 1px solid rgba(128, 128, 128, 0.5);
   aspect-ratio: 1/1;
-  /* font-size: 1rem; */
 }
 
 @media only screen and (max-width: 600px) {
   body {
-    height: 100vh;
     font-size: 0.5rem;
   }
 
   .App {
+    height: 100vh;
     margin: auto;
     padding-top: 20px;
+  }
+
+  .App-header {
+    font-size: 5rem;
   }
 
   .grid-5-by-5 {

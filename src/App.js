@@ -1,4 +1,5 @@
 import Square from './Square';
+import './index.css';
 import './App.css';
 
 const bingoArrayLarge = [
@@ -45,7 +46,7 @@ const bingoSquares = finalArray.map((item, index) => (
 function App() {
   return (
     <div className='App'>
-      <div className='App-header'>Christmas Bingo</div>
+      <div className='App-header'>(Christmas Bingo)</div>
         <div className="grid-5-by-5">
           {bingoSquares}
         </div>

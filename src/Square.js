@@ -2,7 +2,7 @@ import React, {useCallback, useState} from "react";
 
 let foundArray = [];
 
-let winningSets = [
+const winningSets = [
   [0, 1, 2, 3, 4],
   [5, 6, 7, 8, 9],
   [10, 11, 12, 13, 14],
@@ -17,6 +17,7 @@ let winningSets = [
   [4, 8, 12, 16, 20]
 ];
 
+let snowy = true;
 function checkForWin(found, itemKey) {
   if (found === true && !foundArray.includes(found)) {
     foundArray.push(itemKey);
@@ -34,7 +35,8 @@ function checkForWin(found, itemKey) {
       }
     });
     if (count >= 5) {
-      alert('You win!');
+      const appDiv = document.getElementsByClassName('App');
+      appDiv[0].classList.add('snow');
     }
   })
 }
