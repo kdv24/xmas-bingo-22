@@ -5,7 +5,7 @@ import './App.css';
 const bingoArrayLarge = [
   'Blow-Up Nativity Scene', 'Nativity Scene (Not blow up)', 'Candy cane sidewalk lights', 'Blow-up santa', 'Train', 'Santa and reindeer on roof',
   'Reindeer lights', 'Snowman lights', 'Blow-up snowman', 'Noel', 'Christmas tree', 'Big star on house', 'Lit up wreath', 'Music from a house', 
-  'Twinkling lights', 'Lights on a bare tree', 'Bell lights', 'Bells', 'Candle', 'Angel', 'Minorah', 'All blue or red lights on a house',
+  'Twinkling lights', 'Lights on a bare tree', 'Bell lights', 'Bells', 'Candle', 'Angel', 'Menorah', 'All blue or red lights on a house',
   'Lighted palm tree', 'Blow-Up Penguin', 'Blow-Up Polar bear', 'Snow globe', 'Snowflake lights', 'Sleigh', 'Projected something', 'Elves',
   'Decorated bush/hedge', 'Big balls', 'Nutcracker', 'Rooftree', 'Lit up path or railing', 'House with non-winter holiday decorations', 
   'Decorated columns', 'Decorated arches or arbors', 'Person dressed up for Winter holiday', 'Color-change lights', 'Gingerbread man', 
