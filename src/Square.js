@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
-let foundArray = [];
+let foundArray = [12];
 
 const winningSets = [
   [0, 1, 2, 3, 4],
@@ -42,8 +42,15 @@ function checkForWin(found, itemKey) {
 
 function Square(props) {
   const [found, setFound] = useToggle(false);
+  useEffect(() => {
+    if (props.data === 'Free Space') {  
+      const freeSpace = document.getElementById(`bingo-square-${props.item}`);
+      freeSpace.classList.add('Square-selected')
+    }
+  })
   return (
     <div 
+      id={`bingo-square-${props.item}`}
       className={found === false ? "Square" : "Square-selected"}
       onClick={() => {
         setFound(!found);

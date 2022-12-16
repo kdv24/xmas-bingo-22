@@ -40,6 +40,7 @@ const bingoSquares = finalArray.map((item, index) => (
     item={item}
     key={index}
     itemKey={index}
+    data={item}
   />
 ))
 
