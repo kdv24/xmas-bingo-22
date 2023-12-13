@@ -1,3 +1,5 @@
+import Lottie from 'lottie-web';
+
 import Square from './Square';
 import './index.css';
 import './App.css';
@@ -11,6 +13,30 @@ const bingoArrayLarge = [
   'Decorated columns', 'Decorated arches or arbors', 'Person dressed up for Winter holiday', 'Color-change lights', 'Gingerbread man', 
   'Spiral Light Tree', 'Gift boxes', 'Peace sign', 'Peppermints', 'Blowup dinosaur', 'Lights around a window', 'Icicle lights'
 ];
+
+Lottie.loadAnimation({
+  container: document.getElementById('christmas-wind-chimes'), // the dom element that will contain the animation
+  renderer: 'svg',
+  loop: true,
+  autoplay: true,
+  path: './christmas-wind-chimes.json' // the path to the animation json
+});
+
+Lottie.loadAnimation({
+  container: document.getElementById('growing-tree-1'),
+  renderer: 'svg',
+  loop: false,
+  autoplay: true,
+  path: './growing-tree.json' // the path to the animation json
+})
+
+Lottie.loadAnimation({
+  container: document.getElementById('growing-tree-2'),
+  renderer: 'svg',
+  loop: false,
+  autoplay: true,
+  path: './growing-tree.json' // the path to the animation json
+})
 
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -47,10 +73,14 @@ const bingoSquares = finalArray.map((item, index) => (
 function App() {
   return (
     <div className='App'>
-      <div className='App-header'>(Christmas Bingo)</div>
-        <div className="grid-5-by-5">
-          {bingoSquares}
-        </div>
+      <div className='App-header' style={{display: 'flex', flexDirection: 'row'}}>
+        <div id='growing-tree-1' className='lottie growing-tree'></div>
+          <span>(Christmas Bingo)</span>
+        <div id='growing-tree-2' className='lottie growing-tree'></div>
+      </div>
+      <div className="grid-5-by-5">
+        {bingoSquares}
+      </div>
     </div>
   );
 }
