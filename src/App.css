@@ -2,12 +2,6 @@ body {
   height: 100vh;
 }
 
-.growing-tree {
-  display: flex;
-  flex-direction: row;
-  height: 50px;
-}
-
 .App {
   background-image: linear-gradient(#BB2528, red, salmon);
   text-align: center;
@@ -30,7 +24,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  justify-content: center;
   margin-bottom: 1rem;
   margin-top: 2rem;
   font-family: Red-Christmas;
@@ -62,7 +55,6 @@ body {
 .Square {
   display: grid;
   align-content: center;
-  font-size: 1.5rem;
   background-color: beige;
   border: 1px solid rgba(128, 128, 128, 0.5);
   aspect-ratio: 1/1;
@@ -71,7 +63,6 @@ body {
 .Square-selected {
   display: grid;
   align-content: center;
-  font-size: 1.5rem;
   background-image: linear-gradient(#146B38, lightgreen);
   border: 1px solid rgba(128, 128, 128, 0.5);
   aspect-ratio: 1/1;
