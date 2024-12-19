@@ -2,15 +2,71 @@ import Square from './Square';
 import './index.css';
 import './App.css';
 
-const bingoArrayLarge = [
-  'Blow-Up Nativity Scene', 'Nativity Scene (Not blow up)', 'Candy cane sidewalk lights', 'Blow-up santa', 'Train', 'Santa and reindeer on roof',
-  'Reindeer lights', 'Snowman lights', 'Blow-up snowman', 'Noel', 'Christmas tree', 'Big star on house', 'Lit up wreath', 'Music from a house', 
-  'Twinkling lights', 'Lights on a bare tree', 'Bell lights', 'Bells', 'Candle', 'Angel', 'Menorah', 'All blue or red lights on a house',
-  'Lighted palm tree', 'Blow-Up Penguin', 'Blow-Up Polar bear', 'Snow globe', 'Snowflake lights', 'Sleigh', 'Projected something', 'Elves',
-  'Decorated bush/hedge', 'Big balls', 'Nutcracker', 'Rooftree', 'Lit up path or railing', 'House with non-winter holiday decorations', 
-  'Decorated columns', 'Decorated arches or arbors', 'Person dressed up for Winter holiday', 'Color-change lights', 'Gingerbread man', 
-  'Spiral Light Tree', 'Gift boxes', 'Peace sign', 'Peppermints', 'Blowup dinosaur', 'Lights around a window', 'Icicle lights'
-];
+
+const lightsWords = [
+  'Reindeer lights',
+  'Snowman lights',
+  'Wreath lights',
+  'Palm tree lights',
+  'Snowflakes lights',
+  'Path or railing lights',
+  'Color-changing lights',
+  'Spiral tree lights',
+  'Window lights',
+  'Icicles lights',
+  'Twinkling lights',
+  'On a bare tree lights',
+  'Bells lights',
+  'All red or blue lights',
+  'Palm tree lights',
+]
+
+const blowUpWords = [
+  'Blow-up Santa',
+  'Blow-up Snowman',
+  'Blow-up Penguin',
+  'Blow-up Polar bear',
+  'Blow-up Dinosaur',
+  'Blow-up Nativity',
+]
+
+const houseWords = [
+  'Candy cane sidewalk',
+  'Santa/Reindeer on roof',
+  'Big star on house',
+  'Projected something',
+  'Decorated bush/hedge',
+  'Rooftree',
+  'Decor for other holiday',
+  'Decorated columns',
+  'Decorated archway',
+  'Menorah',
+  'Christmas tree', 
+]
+
+const walmartPurchases = [
+  'Train',
+  'Snow globe',
+  'Sleigh',
+  'Elves',
+  'Gingerbread man', 
+  'Gift boxes',
+]
+
+const misc = [
+  'Nativity',
+  'Candle',
+  'Angel', 
+  'Big balls',
+  'Nutcracker',
+  'Seasonal person',
+  'Peace sign',
+  'Peppermints',
+]
+
+const bingoArrayLarge = `
+   ${blowUpWords}, ${lightsWords}, ${houseWords}, ${walmartPurchases}, ${misc}
+`.split(',').map(item => item.trim());
 
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -30,19 +86,46 @@ function shuffle(array) {
   return array;
 }
 
+function checkForBackgroundStyle(item) {
+  let passedClass;
+
+  if (item.includes('Free Space')) {
+    return passedClass = 'free-space Square-selected';
+  }
+  if (lightsWords.includes(item)) {
+    return passedClass = 'lights';
+  }
+  if (blowUpWords.includes(item)) {
+    return passedClass = 'blow-up';
+  }
+  if (houseWords.includes(item)) {
+    return passedClass = 'house-related';
+  }
+  if (walmartPurchases.includes(item)) {
+    return passedClass = 'walmart';
+  }
+  else {
+    passedClass = 'misc';
+  }
+  return passedClass;
+}
+
 const shuffledArray = shuffle(bingoArrayLarge);
 const finalArray = shuffledArray.slice(0, 24);
 finalArray.splice(12, 0, 'Free Space');
 
-
-const bingoSquares = finalArray.map((item, index) => (
-  <Square 
-    item={item}
-    key={index}
-    itemKey={index}
-    data={item}
-  />
-))
+const bingoSquares = finalArray.map((item, index) => {
+  const passedClass = checkForBackgroundStyle(item);
+  return (
+    <Square 
+      className={passedClass}
+      item={item}
+      key={index}
+      itemKey={index}
+      data={item}
+    />
+  );
+});
 
 function App() {
   return (

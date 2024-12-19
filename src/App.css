@@ -18,7 +18,6 @@ body {
   height: 100vh;
 }
 
-
 .App-header {
   display: flex;
   flex-direction: column;
@@ -36,28 +35,22 @@ body {
 }
 
 .grid-5-by-5 {
+  width: fit-content;
+  font-size: 1.5rem;
   margin-top: 1rem;
   margin: 20px;
-
-  /* Activate grid layout */
   display: grid;
-
-  /* Create 5 columns, each 1 "fractional unit" wide */
   grid-template-columns: repeat(5, 1fr);
-
-  /* Create 5 rows, each 1 "fractional unit" high */
   grid-template-rows: repeat(5, 1fr);
-
-  /* Add a 10px gap between columns and rows */
-  grid-gap: 0.5rem
+  grid-gap: 0.5rem;
 }
 
 .Square {
   display: grid;
   align-content: center;
-  background-color: beige;
+  background-color: beige; /* Base color for visibility */
   border: 1px solid rgba(128, 128, 128, 0.5);
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1; /* Maintain square aspect ratio */
 }
 
 .Square-selected {
@@ -65,26 +58,49 @@ body {
   align-content: center;
   background-image: linear-gradient(#146B38, lightgreen);
   border: 1px solid rgba(128, 128, 128, 0.5);
-  aspect-ratio: 1/1;
 }
 
-@media only screen and (max-width: 600px) {
-  body {
-    font-size: 0.5rem;
-  }
+/* Lights border */
+.lights {
+  position: relative;
+  background-color: #f5d97e;
+}
 
-  .App {
-    height: 100vh;
-    margin: auto;
-    padding-top: 20px;
-  }
 
-  .App-header {
-    font-size: 5rem;
-  }
+.blow-up {
+  position: relative;
+  background-color: lightblue;
+}
 
-  .grid-5-by-5 {
-      /* Activate grid layout */
+.house-related {
+  position: relative;
+  background-color: rgb(191, 240, 128);
+}
+
+.walmart {
+  position: relative;
+  background-color: rgb(246, 192, 242);
+}
+
+.misc {
+  position: relative;
+  background-color: lightcoral;
+}
+
+/* Media Queries */
+@media (max-width: 550px) {
+    .App {
+        height:100vh; /* Allow height to adjust on smaller screens */
+        width: min-content;
+        margin: auto;
+        padding-top: 20px; 
+    }
+
+    .App-header {
+        font-size: 5rem; /* Smaller header font size */
+    }
+
+    .grid-5-by-5 {
       display: grid;
     
       /* Create 5 columns, each 1 "fractional unit" wide */
@@ -92,8 +108,16 @@ body {
     
       /* Create 5 rows, each 1 "fractional unit" high */
       grid-template-rows: repeat(5, 1fr);
-    
-      /* Add a 10px gap between columns and rows */
-      grid-gap: 0.1;
+
+      grid-gap: 0.1rem; /* Smaller gap on mobile */
+      margin: 10px;
+      font-size: .75rem; /* Smaller font size on mobile */
     }
+}
+
+@media (max-width 395px) {
+  .grid-5-by-5 {
+    font-size: 0.5rem;
+    background-color: green;
+  }
 }
