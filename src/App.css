@@ -92,7 +92,6 @@ body {
 @media (max-width: 550px) {
     .App {
         height:100vh; /* Allow height to adjust on smaller screens */
-        width: min-content;
         margin: auto;
         padding-top: 20px; 
     }
