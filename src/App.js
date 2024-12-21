@@ -90,7 +90,7 @@ const styleMap = {
   lights: 'lights',
   blowUp: 'blow-up',
   house: 'house-related',
-  walmartPurchase: 'walmart-purchase'
+  walmartPurchase: 'walmart'
 };
 
 // Assume these arrays are defined elsewhere in your code
