@@ -1,7 +1,8 @@
+import React, { useState } from 'react';
 import Square from './Square';
+import ToggleButton from './ToggleButton';
 import './index.css';
 import './App.css';
-
 
 const lightsWords = [
   'Reindeer lights',
@@ -18,7 +19,7 @@ const lightsWords = [
   'Lights on a bare tree',
   'Bells lights',
   'All red or blue lights',
-]
+];
 
 const blowUpWords = [
   'Blow up Santa',
@@ -27,7 +28,7 @@ const blowUpWords = [
   'Blow up Polar bear',
   'Blow up Dinosaur',
   'Blow up Nativity',
-]
+];
 
 const houseWords = [
   'Candy cane sidewalk',
@@ -41,7 +42,7 @@ const houseWords = [
   'Decorated archway',
   'Menorah',
   'Christmas tree', 
-]
+];
 
 const walmartPurchaseWords = [
   'Train',
@@ -51,7 +52,7 @@ const walmartPurchaseWords = [
   'Gingerbread man', 
   'Gift boxes',
   'Peppermints',
-]
+];
 
 const misc = [
   'Nativity',
@@ -61,26 +62,20 @@ const misc = [
   'Nutcracker',
   'Seasonal person',
   'Peace sign',
-]
+];
 
 const bingoArrayLarge = `
    ${blowUpWords}, ${lightsWords}, ${houseWords}, ${walmartPurchaseWords}, ${misc}
 `.split(',').map(item => item.trim());
 
 function shuffle(array) {
-  let currentIndex = array.length,  randomIndex;
+   let currentIndex = array.length, randomIndex;
 
-  // While there remain elements to shuffle.
-  while (currentIndex !== 0) {
-
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
+   while (currentIndex !== 0) {
+     randomIndex = Math.floor(Math.random() * currentIndex);
+     currentIndex--;
+     [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+   }
 
   return array;
 }
@@ -93,12 +88,11 @@ const styleMap = {
   walmartPurchase: 'walmart'
 };
 
-// Assume these arrays are defined elsewhere in your code
 const wordArrays = {
-  lights: lightsWords,
-  blowUp: blowUpWords,
-  house: houseWords,
-  walmartPurchase: walmartPurchaseWords
+   lights: lightsWords,
+   blowUp: blowUpWords,
+   house: houseWords,
+   walmartPurchase: walmartPurchaseWords
 };
 
 function checkForBackgroundStyle(item) {
@@ -118,38 +112,46 @@ function checkForBackgroundStyle(item) {
 
 
 function toTitleCase(str) {
-  return str.toLowerCase().split(' ').map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(' ');
+   return str.toLowerCase().split(" ").map(word => {
+     return word.charAt(0).toUpperCase() + word.slice(1);
+   }).join(" ");
 }
 
 const shuffledArray = shuffle(bingoArrayLarge);
 const finalArray = shuffledArray.slice(0, 24);
-finalArray.splice(12, 0, 'Free Space');
-
-const bingoSquares = finalArray.map((item, index) => {
-  const passedClass = checkForBackgroundStyle(item);
-  const titleCaseItem = toTitleCase(item);
-  return (
-    <Square 
-      className={passedClass}
-      item={titleCaseItem}
-      key={index}
-      itemKey={index}
-      data={item}
-    />
-  );
-});
+finalArray.splice(12, 0, "Free Space");
 
 function App() {
-  return (
-    <div className='App'>
-      <div className='App-header'>(Christmas Bingo)</div>
-        <div className="grid-5-by-5">
-          {bingoSquares}
+    const [isToggled, setIsToggled] = useState(false);
+
+    const handleToggleChange = (newToggleState) => {
+        setIsToggled(newToggleState);
+    };
+
+    return (
+        <div className={`App ${isToggled ? "dark-mode" : ""}`}>
+            <div className="App-header">(Christmas Bingo)</div>
+            <div className="grid-5-by-5">
+                {finalArray.map((item, index) => {
+                  let passedClass = checkForBackgroundStyle(item);
+                  const titleCaseItem = toTitleCase(item);
+                  // Add "is-toggled" to the class if isToggled is true
+                  if (isToggled) {
+                    passedClass += " is-toggled";
+                }
+                  return (
+                    <Square
+                    className={passedClass}
+                    item={titleCaseItem}
+                    key={index}
+                    isToggled={isToggled} // Pass toggle state here
+                    />
+                  );
+                })}
+                <ToggleButton isToggled={isToggled} onToggle={handleToggleChange} />
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 
 export default App;
