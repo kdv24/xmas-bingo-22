@@ -174,6 +174,7 @@ function App() {
                     className={passedClass}
                     item={titleCaseItem}
                     key={index}
+                    itemKey={index}
                     isToggled={isToggled} // Pass toggle state here
                     />
                   );
