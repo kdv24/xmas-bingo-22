@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Square from './Square';
 import ToggleButton from './ToggleButton';
 import './index.css';
@@ -123,6 +123,36 @@ finalArray.splice(12, 0, "Free Space");
 
 function App() {
     const [isToggled, setIsToggled] = useState(false);
+    // Dynamically update the Square-selected class when isToggled changes
+    useEffect(() => {
+      const styleElement = document.createElement('style');
+      styleElement.id = "dynamic-style";
+
+      if (isToggled) {
+          styleElement.innerHTML = `
+              .Square-selected {
+                  color: white !important;
+              }
+          `;
+      } else {
+          styleElement.innerHTML = `
+              .Square-selected {
+                  color: #146B38 !important;
+              }
+          `;
+      }
+
+      // Append the style element to the document head
+      document.head.appendChild(styleElement);
+
+      // Cleanup function to remove the style element when toggled off
+      return () => {
+          const existingStyleElement = document.getElementById('dynamic-style');
+          if (existingStyleElement) {
+              existingStyleElement.remove();
+          }
+      };
+  }, [isToggled]);
 
     const handleToggleChange = (newToggleState) => {
         setIsToggled(newToggleState);
