@@ -18,7 +18,6 @@ const lightsWords = [
   'Lights on a bare tree',
   'Bells lights',
   'All red or blue lights',
-  'Palm tree lights',
 ]
 
 const blowUpWords = [
