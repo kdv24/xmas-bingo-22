@@ -50,21 +50,25 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: clamp(0.5rem, 2vw, 1rem); /* Responsive font size */
-  word-break: normal; /* Changed from break-word */
-  hyphens: manual; /* Changed from auto */
-  overflow-wrap: break-word; /* Added */
-  padding: 0.25em; /* Added for some breathing room */
+  font-size: clamp(0.5rem, 2vw, 1rem);
+  padding: 0.25em;
+  overflow: hidden; /* Prevent content from overflowing */
 }
 
 .Square p, .Square-selected p {
-  margin: 0; /* Remove default paragraph margins */
-  hyphens: auto; /* Enable hyphenation for single words */
+  margin: 0;
+  max-height: 100%; /* Ensure content doesn't exceed square height */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  word-break: normal;
+  hyphens: auto;
 }
-
 
 .Square {
   background-color: beige; /* Base color for visibility */
+  font-weight: 500;
 }
 
 .Square-selected {
