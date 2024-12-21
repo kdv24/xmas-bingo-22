@@ -32,7 +32,7 @@ const blowUpWords = [
 
 const houseWords = [
   'Candy cane sidewalk',
-  'Santa/Reindeer on roof',
+  'Santa or Reindeer on roof',
   'Big star on house',
   'Projected something',
   'Decorated bush/hedge',
@@ -109,16 +109,23 @@ function checkForBackgroundStyle(item) {
   return 'misc';
 }
 
+function toTitleCase(str) {
+  return str.toLowerCase().split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
+
 const shuffledArray = shuffle(bingoArrayLarge);
 const finalArray = shuffledArray.slice(0, 24);
 finalArray.splice(12, 0, 'Free Space');
 
 const bingoSquares = finalArray.map((item, index) => {
   const passedClass = checkForBackgroundStyle(item);
+  const titleCaseItem = toTitleCase(item);
   return (
     <Square 
       className={passedClass}
-      item={item}
+      item={titleCaseItem}
       key={index}
       itemKey={index}
       data={item}
