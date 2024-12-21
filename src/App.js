@@ -93,6 +93,14 @@ const styleMap = {
   walmartPurchase: 'walmart-purchase'
 };
 
+// Assume these arrays are defined elsewhere in your code
+const wordArrays = {
+  lights: lightsWords,
+  blowUp: blowUpWords,
+  house: houseWords,
+  walmartPurchase: walmartPurchaseWords
+};
+
 function checkForBackgroundStyle(item) {
   if (item.includes('Free Space')) {
     return styleMap['Free Space'];
@@ -100,13 +108,14 @@ function checkForBackgroundStyle(item) {
 
   for (const [key, value] of Object.entries(styleMap)) {
     if (key === 'Free Space') continue; // Skip 'Free Space' as it's already checked
-    if (eval(`${key}Words`).includes(item)) {
+    if (wordArrays[key] && wordArrays[key].includes(item)) {
       return value;
     }
   }
 
   return 'misc';
 }
+
 
 function toTitleCase(str) {
   return str.toLowerCase().split(' ').map(word => {
