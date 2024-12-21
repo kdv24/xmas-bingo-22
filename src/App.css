@@ -51,19 +51,24 @@ body {
   justify-content: center;
   text-align: center;
   font-size: clamp(0.5rem, 2vw, 1rem); /* Responsive font size */
-  word-break: break-word; /* Allow words to break */
-  hyphens: auto; /* Enable hyphenation */
+  word-break: normal; /* Changed from break-word */
+  hyphens: manual; /* Changed from auto */
+  overflow-wrap: break-word; /* Added */
+  padding: 0.25em; /* Added for some breathing room */
+}
+
+.Square p, .Square-selected p {
+  margin: 0; /* Remove default paragraph margins */
+  hyphens: auto; /* Enable hyphenation for single words */
 }
 
 
 .Square {
   background-color: beige; /* Base color for visibility */
-  border: 1px solid rgba(128, 128, 128, 0.5);
 }
 
 .Square-selected {
   background-image: linear-gradient(#146B38, lightgreen);
-  border: 1px solid rgba(128, 128, 128, 0.5);
 }
 
 /* Lights border */
