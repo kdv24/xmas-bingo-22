@@ -21,12 +21,12 @@ const lightsWords = [
 ]
 
 const blowUpWords = [
-  'Blow-up Santa',
-  'Blow-up Snowman',
-  'Blow-up Penguin',
-  'Blow-up Polar bear',
-  'Blow-up Dinosaur',
-  'Blow-up Nativity',
+  'Blow up Santa',
+  'Blow up Snowman',
+  'Blow up Penguin',
+  'Blow up Polar bear',
+  'Blow up Dinosaur',
+  'Blow up Nativity',
 ]
 
 const houseWords = [
@@ -34,7 +34,7 @@ const houseWords = [
   'Santa or Reindeer on roof',
   'Big star on house',
   'Projected something',
-  'Decorated bush/hedge',
+  'Decorated bush or hedge',
   'Rooftree',
   'Decor for other holiday',
   'Decorated columns',
