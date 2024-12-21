@@ -50,6 +50,7 @@ const walmartPurchaseWords = [
   'Elves',
   'Gingerbread man', 
   'Gift boxes',
+  'Peppermints',
 ]
 
 const misc = [
@@ -60,7 +61,6 @@ const misc = [
   'Nutcracker',
   'Seasonal person',
   'Peace sign',
-  'Peppermints',
 ]
 
 const bingoArrayLarge = `

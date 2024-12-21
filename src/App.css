@@ -72,7 +72,8 @@ body {
 }
 
 .Square-selected {
-  background-image: linear-gradient(#146B38, lightgreen);
+  background-image: linear-gradient(#146B38, #146B38);
+  font-weight: 200;
 }
 
 /* Lights border */
@@ -112,7 +113,7 @@ body {
     margin: 10px auto;
     font-size: 0.75rem;
   }
-  .Square {
+  .Square, .Square-selected {
     font-size: 0.75rem;
   }
 }
