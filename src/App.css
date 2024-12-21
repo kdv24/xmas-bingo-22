@@ -15,7 +15,6 @@ body {
   background-image: url('../public/red-snow.png');
   background-repeat: no-repeat;
   background-size: cover, contain;
-  height: 100vh;
 }
 
 .App-header {
