@@ -15,7 +15,7 @@ const lightsWords = [
   'Window lights',
   'Icicles lights',
   'Twinkling lights',
-  'On a bare tree lights',
+  'Lights on a bare tree',
   'Bells lights',
   'All red or blue lights',
   'Palm tree lights',
@@ -44,7 +44,7 @@ const houseWords = [
   'Christmas tree', 
 ]
 
-const walmartPurchases = [
+const walmartPurchaseWords = [
   'Train',
   'Snow globe',
   'Sleigh',
@@ -65,7 +65,7 @@ const misc = [
 ]
 
 const bingoArrayLarge = `
-   ${blowUpWords}, ${lightsWords}, ${houseWords}, ${walmartPurchases}, ${misc}
+   ${blowUpWords}, ${lightsWords}, ${houseWords}, ${walmartPurchaseWords}, ${misc}
 `.split(',').map(item => item.trim());
 
 function shuffle(array) {
@@ -86,28 +86,27 @@ function shuffle(array) {
   return array;
 }
 
-function checkForBackgroundStyle(item) {
-  let passedClass;
+const styleMap = {
+  'Free Space': 'free-space Square-selected',
+  lights: 'lights',
+  blowUp: 'blow-up',
+  house: 'house-related',
+  walmartPurchase: 'walmart-purchase'
+};
 
+function checkForBackgroundStyle(item) {
   if (item.includes('Free Space')) {
-    return passedClass = 'free-space Square-selected';
+    return styleMap['Free Space'];
   }
-  if (lightsWords.includes(item)) {
-    return passedClass = 'lights';
+
+  for (const [key, value] of Object.entries(styleMap)) {
+    if (key === 'Free Space') continue; // Skip 'Free Space' as it's already checked
+    if (eval(`${key}Words`).includes(item)) {
+      return value;
+    }
   }
-  if (blowUpWords.includes(item)) {
-    return passedClass = 'blow-up';
-  }
-  if (houseWords.includes(item)) {
-    return passedClass = 'house-related';
-  }
-  if (walmartPurchases.includes(item)) {
-    return passedClass = 'walmart';
-  }
-  else {
-    passedClass = 'misc';
-  }
-  return passedClass;
+
+  return 'misc';
 }
 
 const shuffledArray = shuffle(bingoArrayLarge);
