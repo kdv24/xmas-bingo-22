@@ -41,6 +41,7 @@ function checkForWin(found, itemKey) {
 }
 
 function Square(props) {
+  // console.log(props);
   const [found, setFound] = useToggle(false);
   return (
     <div 
