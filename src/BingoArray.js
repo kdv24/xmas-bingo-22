@@ -140,12 +140,13 @@ export const roadTripStyleMap = {
   roadsideAttraction: 'roadside-attraction'
 };
 
-export const bingoArrayLarge = `
-   ${christmasWordArrays.blowUp}, ${christmasWordArrays.lights}, ${christmasWordArrays.house},
-   ${christmasWordArrays.walmartPurchase}, ${misc}`
-   .split(',').map(item => item.trim());
+export function getWordsForTheme(theme) {
+  const wordArrays = theme === 'Christmas' ? christmasWordArrays : roadTripWordArrays;
+  const allWords = Object.values(wordArrays).flat();
+  return allWords;
+}
 
-function shuffle(array) {
+export function shuffle(array) {
   let currentIndex = array.length, randomIndex;
 
   while (currentIndex !== 0) {
@@ -156,9 +157,3 @@ function shuffle(array) {
 
  return array;
 }
-
-const shuffledArray = shuffle(bingoArrayLarge);
-export const finalArray = shuffledArray.slice(0, 24);
-finalArray.splice(12, 0, "Free Space");
-
-

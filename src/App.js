@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  finalArray,
   christmasStyleMap,
   christmasWordArrays,
   roadTripWordArrays,
-  roadTripStyleMap
+  roadTripStyleMap,
+  getWordsForTheme,
+  shuffle
 } from './BingoArray';
 import Square from './Square';
 import ToggleButton from './ToggleButton';
@@ -37,6 +38,7 @@ function toTitleCase(str) {
 function App() {
     const [isToggled, setIsToggled] = useState(false);
     const [theme, setTheme] = useState('Christmas');
+    const [finalArray, setFinalArray] = useState([]);
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -67,6 +69,13 @@ function App() {
       };
     }, [isToggled]);
 
+    useEffect(() => {
+      const words = getWordsForTheme(theme);
+      const shuffledWords = shuffle(words);
+      shuffledWords[12] = 'Free Space'; // Ensure "Free Space" is always in the center
+      setFinalArray(shuffledWords.slice(0, 25));
+    }, [theme]);
+
     const handleToggleChange = (newToggleState) => {
         setIsToggled(newToggleState);
     };
@@ -78,7 +87,7 @@ function App() {
     return (
         <div className={`App ${isToggled ? "dark-mode" : ""}`}>
             <div className="App-header">{theme} Bingo</div>
-            {/* <div>
+            <div>
                 <label>
                     Select Theme:
                     <select value={theme} onChange={handleThemeChange}>
@@ -86,7 +95,7 @@ function App() {
                         <option value="Road Trip">Road Trip</option>
                     </select>
                 </label>
-            </div> */}
+            </div>
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
