@@ -103,6 +103,32 @@ body {
   background-color: rgb(246, 145, 145);
 }
 
+/* Road Trip Styles */
+.road-trip {
+  position: relative;
+  background-color: #FFD700; /* Gold */
+}
+
+.gas-station {
+  position: relative;
+  background-color: #FF4500; /* OrangeRed */
+}
+
+.rest-area {
+  position: relative;
+  background-color: #1E90FF; /* DodgerBlue */
+}
+
+.scenic-overlook {
+  position: relative;
+  background-color: #32CD32; /* LimeGreen */
+}
+
+.roadside-attraction {
+  position: relative;
+  background-color: #FF69B4; /* HotPink */
+}
+
 /* Toggle Slider */
 /* The switch - the box around the slider */
 .switch {

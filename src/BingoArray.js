@@ -1,5 +1,3 @@
-// Export a const that returns a shuffled array of bingo words
-
 const lightsWords = [
   'Reindeer lights',
   'Snowman lights',
@@ -96,4 +94,69 @@ const shuffledArray = shuffle(bingoArrayLarge);
 export const finalArray = shuffledArray.slice(0, 24);
 finalArray.splice(12, 0, "Free Space");
 
+const gasStationWords = [
+  'Gas station',
+  'Fuel pump',
+  'Convenience store',
+  'Restroom',
+  'Air pump',
+  'Car wash',
+  'ATM',
+  'Snack aisle',
+  'Coffee station',
+  'Lottery tickets',
+];
 
+const restAreaWords = [
+  'Rest area',
+  'Picnic table',
+  'Restroom',
+  'Vending machine',
+  'Pet area',
+  'Playground',
+  'Information kiosk',
+  'Scenic view',
+  'Walking trail',
+  'Parking lot',
+];
+
+const scenicOverlookWords = [
+  'Scenic overlook',
+  'Viewpoint',
+  'Binoculars',
+  'Photo spot',
+  'Hiking trail',
+  'Wildlife',
+  'Historical marker',
+  'Picnic area',
+  'Parking area',
+  'Sunset view',
+];
+
+const roadsideAttractionWords = [
+  'Roadside attraction',
+  'Giant statue',
+  'Quirky museum',
+  'Tourist trap',
+  'Gift shop',
+  'Photo op',
+  'Historical site',
+  'Local legend',
+  'Unusual landmark',
+  'Souvenir stand',
+];
+
+export const roadTripWordArrays = {
+  gasStation: gasStationWords,
+  restArea: restAreaWords,
+  scenicOverlook: scenicOverlookWords,
+  roadsideAttraction: roadsideAttractionWords
+};
+
+export const roadTripStyleMap = {
+  'Free Space': 'free-space Square-selected',
+  gasStation: 'gas-station',
+  restArea: 'rest-area',
+  scenicOverlook: 'scenic-overlook',
+  roadsideAttraction: 'roadside-attraction'
+};
