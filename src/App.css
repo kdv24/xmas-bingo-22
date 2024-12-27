@@ -147,6 +147,9 @@ body {
   width: 60px;
   height: 34px;
   margin-top: 20px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: background-color 0.4s;
 }
 
 /* Hide default HTML checkbox */
