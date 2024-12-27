@@ -4,6 +4,8 @@ import {
   christmasWordArrays,
   roadTripWordArrays,
   roadTripStyleMap,
+  planeTripWordArrays,
+  planeTripStyleMap,
   getWordsForTheme,
   shuffle
 } from './BingoArray';
@@ -13,8 +15,8 @@ import './index.css';
 import './App.css';
 
 function checkForBackgroundStyle(item, theme) {
-  const styleMap = theme === 'Christmas' ? christmasStyleMap : roadTripStyleMap;
-  const wordArrays = theme === 'Christmas' ? christmasWordArrays : roadTripWordArrays;
+  const styleMap = theme === 'Christmas' ? christmasStyleMap : theme === 'Road Trip' ? roadTripStyleMap : planeTripStyleMap;
+  const wordArrays = theme === 'Christmas' ? christmasWordArrays : theme === 'Road Trip' ? roadTripWordArrays : planeTripWordArrays;
 
   if (item.includes('Free Space')) {
     return styleMap['Free Space'];
@@ -96,12 +98,14 @@ function App() {
       const appDiv = document.getElementsByClassName('App')[0];
       if (theme === 'Christmas') {
         appDiv.classList.add('christmas');
-      } else {
+      } else if (theme === 'Road Trip') {
         appDiv.classList.add('road-trip');
+      } else if (theme === 'Traveling by Plane') {
+        appDiv.classList.add('traveling-by-plane');
       }
     });
     return (
-        <div className={`App ${theme === 'Road Trip' ? "road-trip" : "christmas"}`}>
+        <div className={`App ${theme === 'Road Trip' ? "road-trip" : theme === 'Traveling by Plane' ? "traveling-by-plane" : "christmas"}`}>
             <div className="App-header">{theme} Bingo</div>
             <div className="theme-dropdown-container">
                 <label>
@@ -109,6 +113,7 @@ function App() {
                     <select className="theme-dropdown" value={theme} onChange={handleThemeChange}>
                         <option value="Christmas">Christmas</option>
                         <option value="Road Trip">Road Trip</option>
+                        <option value="Traveling by Plane">Traveling by Plane</option>
                     </select>
                 </label>
             </div>

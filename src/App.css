@@ -140,6 +140,32 @@ body {
   background-color: #9faa68; /* P0cab */
 }
 
+/* Traveling by Plane Styles */
+.traveling-by-plane {
+  position: relative;
+  background-image: linear-gradient(#87CEEB, #4682B4, #1E90FF);
+}
+
+.airport {
+  position: relative;
+  background-color: #FFD700; /* Gold */
+}
+
+.in-flight {
+  position: relative;
+  background-color: #FF4500; /* OrangeRed */
+}
+
+.destination {
+  position: relative;
+  background-color: #32CD32; /* LimeGreen */
+}
+
+.travel-misc {
+  position: relative;
+  background-color: #8A2BE2; /* BlueViolet */
+}
+
 /* Toggle Slider */
 /* The switch - the box around the slider */
 .switch {

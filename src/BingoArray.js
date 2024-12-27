@@ -140,8 +140,82 @@ export const roadTripStyleMap = {
   roadsideAttraction: 'roadside-attraction'
 };
 
+const airportWords = [
+  'Check-in counter',
+  'Security checkpoint',
+  'Boarding gate',
+  'Duty-free shop',
+  'Baggage claim',
+  'Airport lounge',
+  'Runway',
+  'Control tower',
+  'Airport shuttle',
+  'Lost and found',
+];
+
+const inFlightWords = [
+  'In-flight meal',
+  'Seatbelt sign',
+  'Tray table',
+  'Overhead bin',
+  'Flight attendant',
+  'In-flight entertainment',
+  'Emergency exit',
+  'Window seat',
+  'Aisle seat',
+  'Lavatory',
+];
+
+const destinationWords = [
+  'Hotel lobby',
+  'Tourist attraction',
+  'Local cuisine',
+  'Souvenir shop',
+  'City skyline',
+  'Beach',
+  'Mountain',
+  'Museum',
+  'Park',
+  'Historical site',
+];
+
+const travelMiscWords = [
+  'Passport',
+  'Boarding pass',
+  'Luggage',
+  'Travel guide',
+  'Map',
+  'Currency exchange',
+  'Travel insurance',
+  'Travel adapter',
+  'Travel pillow',
+  'Travel app',
+];
+
+export const planeTripWordArrays = {
+  airport: airportWords,
+  inFlight: inFlightWords,
+  destination: destinationWords,
+  travelMisc: travelMiscWords
+};
+
+export const planeTripStyleMap = {
+  'Free Space': 'free-space Square-selected',
+  airport: 'airport',
+  inFlight: 'in-flight',
+  destination: 'destination',
+  travelMisc: 'travel-misc'
+};
+
 export function getWordsForTheme(theme) {
-  const wordArrays = theme === 'Christmas' ? christmasWordArrays : roadTripWordArrays;
+  let wordArrays;
+  if (theme === 'Christmas') {
+    wordArrays = christmasWordArrays;
+  } else if (theme === 'Road Trip') {
+    wordArrays = roadTripWordArrays;
+  } else if (theme === 'Traveling by Plane') {
+    wordArrays = planeTripWordArrays;
+  }
   const allWords = Object.values(wordArrays).flat();
   return allWords;
 }
