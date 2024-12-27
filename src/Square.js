@@ -17,7 +17,7 @@ const winningSets = [
   [4, 8, 12, 16, 20]
 ];
 
-function checkForWin(found, itemKey) {
+function checkForWin(found, itemKey, theme) {
   if (found === true && !foundArray.includes(found)) {
     foundArray.push(itemKey);
   }
@@ -34,8 +34,12 @@ function checkForWin(found, itemKey) {
       }
     });
     if (count >= 5) {
-      const appDiv = document.getElementsByClassName('App');
-      appDiv[0].classList.add('snow');
+      const appDiv = document.getElementsByClassName('App')[0];
+      if (theme === 'Road Trip') {
+        appDiv.classList.add('national-park');
+      } else {
+        appDiv.classList.add('snow');
+      }
     }
   })
 }
@@ -49,7 +53,7 @@ function Square(props) {
       className={found === false ? `Square ${props.className}` : `Square-selected ${props.className}`}
       onClick={() => {
         setFound(!found);
-        checkForWin(!found, props.itemKey)
+        checkForWin(!found, props.itemKey, props.theme);
       }
     }
     >
