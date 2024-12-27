@@ -110,7 +110,8 @@ body {
 /* Road Trip Styles */
 .road-trip {
   position: relative;
-  background-image: linear-gradient(#2E8B57, #3CB371, #66CDAA);
+  background-image: linear-gradient(#2E8B57, #2E8B57, #2E8B57);
+  /* background-image: linear-gradient(#2E8B57, #3CB371, #66CDAA); */
 }
 
 .national-park {
@@ -126,7 +127,7 @@ body {
 
 .rest-area {
   position: relative;
-  background-color: #036350; /* Pbcf8 */
+  background-color: #53B4B2; /* Pbcf8 */
 }
 
 .scenic-overlook {
@@ -136,7 +137,7 @@ body {
 
 .roadside-attraction {
   position: relative;
-  background-color: #76843C; /* P0cab */
+  background-color: #9faa68; /* P0cab */
 }
 
 /* Toggle Slider */
