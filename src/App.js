@@ -87,6 +87,7 @@ function App() {
 
     const handleThemeChange = (event) => {
         setTheme(event.target.value);
+        setFinalArray([]); // Reset the board when the theme changes
     };
 
     useEffect(() => {

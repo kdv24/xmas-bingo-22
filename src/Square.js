@@ -44,6 +44,10 @@ function checkForWin(found, itemKey, theme) {
   })
 }
 
+function resetBoard() {
+  foundArray = [12];
+}
+
 function Square(props) {
   // console.log(props);
   const [found, setFound] = useToggle(false);
