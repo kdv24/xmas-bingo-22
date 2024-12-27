@@ -31,7 +31,7 @@ function checkForBackgroundStyle(item, theme) {
 
 function toTitleCase(str) {
    return str.toLowerCase().split(" ").map(word => {
-    if (word === "ATM") {
+    if (word === "atm") {
       return word.toUpperCase();
     }
     else {
@@ -44,6 +44,7 @@ function App() {
     const [isToggled, setIsToggled] = useState(false);
     const [theme, setTheme] = useState('Christmas');
     const [finalArray, setFinalArray] = useState([]);
+    const [foundArray, setFoundArray] = useState([12]);
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -88,6 +89,7 @@ function App() {
     const handleThemeChange = (event) => {
         setTheme(event.target.value);
         setFinalArray([]); // Reset the board when the theme changes
+        setFoundArray([12]); // Reset the foundArray when the theme changes
     };
 
     useEffect(() => {
@@ -125,6 +127,7 @@ function App() {
                       itemKey={index}
                       isToggled={isToggled}
                       theme={theme}
+                      foundArray={foundArray}
                     />
                   );
                 })}

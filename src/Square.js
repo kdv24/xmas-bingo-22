@@ -1,6 +1,5 @@
 import React, {useCallback, useState} from "react";
 
-let foundArray = [12];
 
 const winningSets = [
   [0, 1, 2, 3, 4],
@@ -17,7 +16,7 @@ const winningSets = [
   [4, 8, 12, 16, 20]
 ];
 
-function checkForWin(found, itemKey, theme) {
+function checkForWin(found, itemKey, theme, foundArray) {
   if (found === true && !foundArray.includes(found)) {
     foundArray.push(itemKey);
   }
@@ -44,12 +43,7 @@ function checkForWin(found, itemKey, theme) {
   })
 }
 
-function resetBoard() {
-  foundArray = [12];
-}
-
 function Square(props) {
-  // console.log(props);
   const [found, setFound] = useToggle(false);
   return (
     <div 
@@ -57,7 +51,7 @@ function Square(props) {
       className={found === false ? `Square ${props.className}` : `Square-selected ${props.className}`}
       onClick={() => {
         setFound(!found);
-        checkForWin(!found, props.itemKey, props.theme);
+        checkForWin(!found, props.itemKey, props.theme, props.foundArray);
       }
     }
     >
