@@ -103,10 +103,10 @@ function App() {
     return (
         <div className={`App ${theme === 'Road Trip' ? "road-trip" : "christmas"}`}>
             <div className="App-header">{theme} Bingo</div>
-            <div>
+            <div className="theme-dropdown-container">
                 <label>
                     Select Theme:
-                    <select value={theme} onChange={handleThemeChange}>
+                    <select className="theme-dropdown" value={theme} onChange={handleThemeChange}>
                         <option value="Christmas">Christmas</option>
                         <option value="Road Trip">Road Trip</option>
                     </select>

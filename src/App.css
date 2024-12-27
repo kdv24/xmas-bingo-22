@@ -193,6 +193,29 @@ input:checked + .slider::before {
   transform: translateX(26px);
 }
 
+/* Theme Dropdown Styles */
+.theme-dropdown-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.theme-dropdown {
+  padding: 0.5rem;
+  border: 2px solid #146B38;
+  border-radius: 5px;
+  background-color: #fff;
+  font-family: 'CursiveSans', sans-serif;
+  font-size: 1rem;
+  color: #146B38;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.theme-dropdown:focus {
+  border-color: #3CB371;
+}
+
 /* Media Queries */
 @media (max-width: 550px) {
   .App-header {
