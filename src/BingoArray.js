@@ -149,4 +149,4 @@ const shuffledArray = shuffle(bingoArrayLarge);
 export const finalArray = shuffledArray.slice(0, 24);
 finalArray.splice(12, 0, "Free Space");
 
-export { roadTripWords };
+export { roadTripWords, roadTripStyleMap };
