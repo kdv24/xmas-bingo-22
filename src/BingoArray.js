@@ -140,8 +140,59 @@ export const roadTripStyleMap = {
   roadsideAttraction: 'roadside-attraction'
 };
 
+const stageWords = [
+  'Main stage',
+  'Backup dancers',
+  'Pyrotechnics',
+  'LED screens',
+  'Stage props',
+  'Lighting effects',
+];
+
+const artistWords = [
+  'Lead singer',
+  'Backup singers',
+  'Costume change',
+  'Dance routine',
+  'Special guest',
+  'Vocal effects',
+];
+
+const songWords = [
+  'Eurovision song',
+  'Chorus',
+  'Verse',
+  'Bridge',
+  'Key change',
+  'High note',
+];
+
+const countryWords = [
+  'Host country',
+  'Participating country',
+  'Flag',
+  'National costume',
+  'Traditional instrument',
+  'Cultural reference',
+];
+
+export const eurovisionWordArrays = {
+  stage: stageWords,
+  artist: artistWords,
+  song: songWords,
+  country: countryWords
+};
+
+export const eurovisionStyleMap = {
+  'Free Space': 'free-space Square-selected',
+  stage: 'stage',
+  artist: 'artist',
+  song: 'song',
+  country: 'country'
+};
+
 export function getWordsForTheme(theme) {
-  const wordArrays = theme === 'Christmas' ? christmasWordArrays : roadTripWordArrays;
+  const wordArrays = theme === 'Christmas' ? christmasWordArrays : theme === 'Road Trip' ? roadTripWordArrays : eurovisionWordArrays;
   const allWords = Object.values(wordArrays).flat();
   return allWords;
 }
