@@ -1,5 +1,3 @@
-// Export a const that returns a shuffled array of bingo words
-
 const lightsWords = [
   'Reindeer lights',
   'Snowman lights',
@@ -60,6 +58,33 @@ const misc = [
   'Peace sign',
 ];
 
+const roadTripWords = [
+  'Gas station',
+  'Rest area',
+  'Scenic view',
+  'Road sign',
+  'Toll booth',
+  'Highway',
+  'Exit sign',
+  'Mile marker',
+  'Overpass',
+  'Underpass',
+  'Billboard',
+  'Rest stop',
+  'Truck stop',
+  'Welcome center',
+  'Tourist attraction',
+  'State line',
+  'City limit',
+  'Speed limit sign',
+  'Construction zone',
+  'Detour',
+  'Traffic light',
+  'Roundabout',
+  'Pedestrian crossing',
+  'Bicycle lane',
+];
+
 export const christmasWordArrays = {
   lights: lightsWords,
   blowUp: blowUpWords,
@@ -75,9 +100,37 @@ export const christmasStyleMap = {
   walmartPurchase: 'walmart'
 };
 
+export const roadTripStyleMap = {
+  'Free Space': 'free-space Square-selected',
+  gasStation: 'gas-station',
+  restArea: 'rest-area',
+  scenicView: 'scenic-view',
+  roadSign: 'road-sign',
+  tollBooth: 'toll-booth',
+  highway: 'highway',
+  exitSign: 'exit-sign',
+  mileMarker: 'mile-marker',
+  overpass: 'overpass',
+  underpass: 'underpass',
+  billboard: 'billboard',
+  restStop: 'rest-stop',
+  truckStop: 'truck-stop',
+  welcomeCenter: 'welcome-center',
+  touristAttraction: 'tourist-attraction',
+  stateLine: 'state-line',
+  cityLimit: 'city-limit',
+  speedLimitSign: 'speed-limit-sign',
+  constructionZone: 'construction-zone',
+  detour: 'detour',
+  trafficLight: 'traffic-light',
+  roundabout: 'roundabout',
+  pedestrianCrossing: 'pedestrian-crossing',
+  bicycleLane: 'bicycle-lane',
+};
+
 export const bingoArrayLarge = `
    ${christmasWordArrays.blowUp}, ${christmasWordArrays.lights}, ${christmasWordArrays.house},
-   ${christmasWordArrays.walmartPurchase}, ${misc}`
+   ${christmasWordArrays.walmartPurchase}, ${misc}, ${roadTripWords}`
    .split(',').map(item => item.trim());
 
 function shuffle(array) {
@@ -95,5 +148,3 @@ function shuffle(array) {
 const shuffledArray = shuffle(bingoArrayLarge);
 export const finalArray = shuffledArray.slice(0, 24);
 finalArray.splice(12, 0, "Free Space");
-
-

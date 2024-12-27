@@ -2,21 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { 
   finalArray,
   christmasStyleMap,
-  christmasWordArrays
+  christmasWordArrays,
+  roadTripStyleMap,
+  roadTripWords
 } from './BingoArray';
 import Square from './Square';
 import ToggleButton from './ToggleButton';
 import './index.css';
 import './App.css';
 
-function checkForBackgroundStyle(item) {
+function checkForBackgroundStyle(item, selectedTheme) {
+  const styleMap = selectedTheme === 'christmas' ? christmasStyleMap : roadTripStyleMap;
+  const wordArrays = selectedTheme === 'christmas' ? christmasWordArrays : { roadTrip: roadTripWords };
+
   if (item.includes('Free Space')) {
-    return christmasStyleMap['Free Space'];
+    return styleMap['Free Space'];
   }
 
-  for (const [key, value] of Object.entries(christmasStyleMap)) {
+  for (const [key, value] of Object.entries(styleMap)) {
     if (key === 'Free Space') continue; // Skip 'Free Space' as it's already checked
-    if (christmasWordArrays[key] && christmasWordArrays[key].includes(item)) {
+    if (wordArrays[key] && wordArrays[key].includes(item)) {
       return value;
     }
   }
@@ -31,6 +36,8 @@ function toTitleCase(str) {
 
 function App() {
     const [isToggled, setIsToggled] = useState(false);
+    const [selectedTheme, setSelectedTheme] = useState('christmas');
+
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
       const styleElement = document.createElement('style');
@@ -64,12 +71,23 @@ function App() {
         setIsToggled(newToggleState);
     };
 
+    const handleThemeChange = (event) => {
+        setSelectedTheme(event.target.value);
+    };
+
     return (
         <div className={`App ${isToggled ? "dark-mode" : ""}`}>
             <div className="App-header">(Christmas Bingo)</div>
+            <div>
+                <label htmlFor="theme-select">Choose a theme:</label>
+                <select id="theme-select" value={selectedTheme} onChange={handleThemeChange}>
+                    <option value="christmas">Christmas</option>
+                    <option value="roadTrip">Road Trip</option>
+                </select>
+            </div>
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
-                  let passedClass = checkForBackgroundStyle(item);
+                  let passedClass = checkForBackgroundStyle(item, selectedTheme);
                   const titleCaseItem = toTitleCase(item);
                   if (isToggled) {
                     passedClass += " is-toggled";
