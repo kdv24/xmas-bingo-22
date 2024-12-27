@@ -3,18 +3,12 @@ body {
 }
 
 .App {
-  background-image: linear-gradient(#2E8B57, #3CB371, #66CDAA);
+  background-image: linear-gradient(#BB2528, red, salmon);
   text-align: center;
   display: flex;
   flex-direction: column;
   position: relative;
   min-height: 100vh;
-}
-
-.snow {
-  background-image: url('../public/national-park.png');
-  background-repeat: no-repeat;
-  background-size: cover, contain;
 }
 
 .App-header {
@@ -76,7 +70,18 @@ body {
   color: #146B38;
 }
 
-/* Lights border */
+/* Christmas Styles */
+.christmas {
+  position: relative;
+  background-image: linear-gradient(#BB2528, red, salmon);
+}
+
+.snow {
+  background-image: url('../public/red-snow.png');
+  background-repeat: no-repeat;
+  background-size: cover, contain;
+}
+
 .lights {
   position: relative;
   background-color: #fae294; /* Pd23d */
@@ -105,7 +110,13 @@ body {
 /* Road Trip Styles */
 .road-trip {
   position: relative;
-  background-color: #00ADB9; /* P3306 */
+  background-image: linear-gradient(#2E8B57, #3CB371, #66CDAA);
+}
+
+.national-park {
+  background-image: url('../public/national-park.png');
+  background-repeat: no-repeat;
+  background-size: cover, contain;
 }
 
 .gas-station {

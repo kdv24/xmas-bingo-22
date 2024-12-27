@@ -84,8 +84,16 @@ function App() {
         setTheme(event.target.value);
     };
 
+    useEffect(() => {
+      const appDiv = document.getElementsByClassName('App')[0];
+      if (theme === 'Christmas') {
+        appDiv.classList.add('christmas');
+      } else {
+        appDiv.classList.add('road-trip');
+      }
+    });
     return (
-        <div className={`App ${isToggled ? "dark-mode" : ""}`}>
+        <div className={`App ${theme === 'Road Trip' ? "road-trip" : "christmas"}`}>
             <div className="App-header">{theme} Bingo</div>
             <div>
                 <label>
@@ -110,6 +118,7 @@ function App() {
                       key={index}
                       itemKey={index}
                       isToggled={isToggled}
+                      theme={theme}
                     />
                   );
                 })}
