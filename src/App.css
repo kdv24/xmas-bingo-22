@@ -79,54 +79,53 @@ body {
 /* Lights border */
 .lights {
   position: relative;
-  background-color: #fae294;
+  background-color: #8B4513; /* P523a */
 }
-
 
 .blow-up {
   position: relative;
-  background-color: lightblue;
+  background-color: #A0522D; /* P8f28 */
 }
 
 .house-related {
   position: relative;
-  background-color: rgb(191, 240, 128);
+  background-color: #6B8E23; /* P6211 */
 }
 
 .walmart {
   position: relative;
-  background-color: rgb(210, 190, 246);
+  background-color: #8FBC8F; /* P01c5 */
 }
 
 .misc {
   position: relative;
-  background-color: rgb(246, 145, 145);
+  background-color: #2E8B57; /* P169a */
 }
 
 /* Road Trip Styles */
 .road-trip {
   position: relative;
-  background-color: #FFD700; /* Gold */
+  background-color: #8B4513; /* Pc21f */
 }
 
 .gas-station {
   position: relative;
-  background-color: #FF4500; /* OrangeRed */
+  background-color: #A0522D; /* P704b */
 }
 
 .rest-area {
   position: relative;
-  background-color: #1E90FF; /* DodgerBlue */
+  background-color: #6B8E23; /* Pefcb */
 }
 
 .scenic-overlook {
   position: relative;
-  background-color: #32CD32; /* LimeGreen */
+  background-color: #8FBC8F; /* P4a58 */
 }
 
 .roadside-attraction {
   position: relative;
-  background-color: #FF69B4; /* HotPink */
+  background-color: #2E8B57; /* P6261 */
 }
 
 /* Toggle Slider */
