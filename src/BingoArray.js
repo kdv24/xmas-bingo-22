@@ -73,27 +73,6 @@ export const christmasStyleMap = {
   walmartPurchase: 'walmart'
 };
 
-export const bingoArrayLarge = `
-   ${christmasWordArrays.blowUp}, ${christmasWordArrays.lights}, ${christmasWordArrays.house},
-   ${christmasWordArrays.walmartPurchase}, ${misc}`
-   .split(',').map(item => item.trim());
-
-function shuffle(array) {
-  let currentIndex = array.length, randomIndex;
-
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-
- return array;
-}
-
-const shuffledArray = shuffle(bingoArrayLarge);
-export const finalArray = shuffledArray.slice(0, 24);
-finalArray.splice(12, 0, "Free Space");
-
 const gasStationWords = [
   'Gas station',
   'Fuel pump',
@@ -160,3 +139,26 @@ export const roadTripStyleMap = {
   scenicOverlook: 'scenic-overlook',
   roadsideAttraction: 'roadside-attraction'
 };
+
+export const bingoArrayLarge = `
+   ${christmasWordArrays.blowUp}, ${christmasWordArrays.lights}, ${christmasWordArrays.house},
+   ${christmasWordArrays.walmartPurchase}, ${misc}`
+   .split(',').map(item => item.trim());
+
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+
+ return array;
+}
+
+const shuffledArray = shuffle(bingoArrayLarge);
+export const finalArray = shuffledArray.slice(0, 24);
+finalArray.splice(12, 0, "Free Space");
+
+

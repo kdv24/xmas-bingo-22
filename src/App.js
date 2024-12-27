@@ -78,7 +78,7 @@ function App() {
     return (
         <div className={`App ${isToggled ? "dark-mode" : ""}`}>
             <div className="App-header">{theme} Bingo</div>
-            <div>
+            {/* <div>
                 <label>
                     Select Theme:
                     <select value={theme} onChange={handleThemeChange}>
@@ -86,7 +86,7 @@ function App() {
                         <option value="Road Trip">Road Trip</option>
                     </select>
                 </label>
-            </div>
+            </div> */}
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
