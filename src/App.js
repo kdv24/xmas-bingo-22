@@ -9,7 +9,9 @@ import {
   eurovisionWordArrays,
   eurovisionStyleMap,
   getWordsForTheme,
-  shuffle
+  shuffle,
+  loadCustomTheme,
+  saveCustomTheme
 } from './BingoArray';
 import Square from './Square';
 import ToggleButton from './ToggleButton';
@@ -126,6 +128,9 @@ function App() {
             setTheme(selectedTheme);
             setFinalArray([]); // Reset the board when the theme changes
             setFoundArray([12]); // Reset the foundArray when the theme changes
+            if (selectedTheme !== 'Christmas' && selectedTheme !== 'Road Trip' && selectedTheme !== 'Plane Travel' && selectedTheme !== 'Eurovision') {
+              handleUpdateCustomTheme(selectedTheme);
+            }
         }
     };
 
@@ -143,6 +148,15 @@ function App() {
 
         setCustomThemes([...customThemes, newTheme]);
         setShowThemeCreator(false);
+    };
+
+    const handleUpdateCustomTheme = async (themeName) => {
+      const customTheme = await loadCustomTheme(themeName);
+      if (customTheme) {
+        setFinalArray(customTheme.wordArrays);
+        const appDiv = document.getElementsByClassName('App')[0];
+        appDiv.style.setProperty('background-image', `linear-gradient(${customTheme.backgroundColor}, ${customTheme.backgroundColor}, ${customTheme.backgroundColor})`);
+      }
     };
 
     useEffect(() => {

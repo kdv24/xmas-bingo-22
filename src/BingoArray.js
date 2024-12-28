@@ -323,7 +323,12 @@ export async function saveCustomTheme(theme, backgroundColor) {
   if (!Array.isArray(themes)) {
     themes = [];
   }
-  themes.push(theme);
+  const existingThemeIndex = themes.findIndex(t => t.themeName === theme.themeName);
+  if (existingThemeIndex !== -1) {
+    themes[existingThemeIndex] = theme;
+  } else {
+    themes.push(theme);
+  }
   console.log('Themes after push:', themes);
   localStorage.setItem('customThemes', JSON.stringify(themes));
   localStorage.setItem('customThemeBackground', backgroundColor);  
@@ -341,4 +346,14 @@ export function loadThemesFromLocalStorage() {
 
 export function saveThemesToLocalStorage(themes) {
   localStorage.setItem('customThemes', JSON.stringify(themes));
+}
+
+export function updateCustomTheme(themeName, newWordList, newBackgroundColor) {
+  const themes = JSON.parse(localStorage.getItem('customThemes')) || [];
+  const themeIndex = themes.findIndex(theme => theme.themeName === themeName);
+  if (themeIndex !== -1) {
+    themes[themeIndex].wordArrays = newWordList;
+    themes[themeIndex].backgroundColor = newBackgroundColor;
+    localStorage.setItem('customThemes', JSON.stringify(themes));
+  }
 }
