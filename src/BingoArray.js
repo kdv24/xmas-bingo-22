@@ -62,7 +62,7 @@ export const christmasWordArrays = {
 };
 
 export const christmasStyleMap = {
-  'Free Space': 'free-space Square-selected',
+  'Free Space': 'free-space',
   lights: 'lights',
   yardDecorations: 'yard-decorations',
   holidaySymbols: 'holiday-symbols',
@@ -129,7 +129,7 @@ export const roadTripWordArrays = {
 };
 
 export const roadTripStyleMap = {
-  'Free Space': 'free-space Square-selected',
+  'Free Space': 'free-space',
   gasStation: 'gas-station',
   restArea: 'rest-area',
   scenicOverlook: 'scenic-overlook',
@@ -196,7 +196,7 @@ export const planeTripWordArrays = {
 };
 
 export const planeTripStyleMap = {
-  'Free Space': 'free-space Square-selected',
+  'Free Space': 'free-space',
   airport: 'airport',
   inFlight: 'in-flight',
   destination: 'destination',
@@ -271,7 +271,7 @@ export const eurovisionWordArrays = {
 };
 
 export const eurovisionStyleMap = {
-  'Free Space': 'free-space Square-selected',
+  'Free Space': 'free-space',
   stage: 'stage',
   artist: 'artist',
   song: 'song',

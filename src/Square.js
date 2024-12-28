@@ -66,7 +66,11 @@ function Square(props) {
       }
     }
     >
-      {props.item}
+      {props.item === "Free Space" ? (
+        <div className="free-space">{props.item}</div>
+      ) : (
+        props.item
+      )}
     </div>
   );
 }
