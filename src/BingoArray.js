@@ -15,62 +15,58 @@ const lightsWords = [
   'All red or blue lights',
 ];
 
-const blowUpWords = [
+const yardDecorations = [
   'Blow up Santa',
   'Blow up Snowman',
   'Blow up Penguin',
   'Blow up Polar bear',
   'Blow up Dinosaur',
   'Blow up Nativity',
-];
-
-const houseWords = [
   'Candy cane sidewalk',
   'Santa or Reindeer on roof',
   'Big star on house',
   'Projected something',
   'Decorated bush or hedge',
   'Rooftree',
-  'Decor for other holiday',
   'Decorated columns',
-  'Decorated archway',
+  'Decorated archway',];
+
+const holidaySymbols = [
   'Menorah or kinara',
-  'Christmas tree', 
+  'Christmas tree',
+  'Nativity',
+  'Angel',
+  'Nutcracker',
+  'Seasonal person',
+  'Peace sign',
+  'Decor for other holiday',
 ];
 
-const walmartPurchaseWords = [
+const decorativeItems = [
   'Train',
   'Snow globe',
   'Sleigh',
   'Elves',
-  'Gingerbread man', 
+  'Gingerbread man',
   'Gift boxes',
   'Peppermints',
-];
-
-const misc = [
-  'Nativity',
   'Candle',
-  'Angel', 
   'Big balls',
-  'Nutcracker',
-  'Seasonal person',
-  'Peace sign',
 ];
 
 export const christmasWordArrays = {
   lights: lightsWords,
-  blowUp: blowUpWords,
-  house: houseWords,
-  walmartPurchase: walmartPurchaseWords
+  yardDecorations: yardDecorations,
+  holidaySymbols: holidaySymbols,
+  decorativeItems: decorativeItems
 };
 
 export const christmasStyleMap = {
   'Free Space': 'free-space Square-selected',
   lights: 'lights',
-  blowUp: 'blow-up',
-  house: 'house-related',
-  walmartPurchase: 'walmart'
+  yardDecorations: 'yard-decorations',
+  holidaySymbols: 'holiday-symbols',
+  decorativeItems: 'decorative-items'
 };
 
 const gasStationWords = [
@@ -179,7 +175,7 @@ const destinationWords = [
   'Historical site',
 ];
 
-const travelMiscWords = [
+const travelItems = [
   'Passport',
   'Boarding pass',
   'Luggage',
@@ -196,7 +192,7 @@ export const planeTripWordArrays = {
   airport: airportWords,
   inFlight: inFlightWords,
   destination: destinationWords,
-  travelMisc: travelMiscWords
+  travelItems: travelItems
 };
 
 export const planeTripStyleMap = {
@@ -204,18 +200,78 @@ export const planeTripStyleMap = {
   airport: 'airport',
   inFlight: 'in-flight',
   destination: 'destination',
-  travelMisc: 'travel-misc'
+  travelItems: 'travel-items'
+};
+
+const stageWords = [
+  'Main stage',
+  'Backup dancers',
+  'Pyrotechnics',
+  'LED screens',
+  'Stage props',
+  'Lighting effects',
+];
+
+const artistWords = [
+  'Lead singer',
+  'Backup singers',
+  'Costume change',
+  'Dance routine',
+  'Special guest',
+  'Vocal effects',
+];
+
+const songWords = [
+  'Eurovision song',
+  'Chorus',
+  'Verse',
+  'Bridge',
+  'Key change',
+  'High note',
+];
+
+const countryWords = [
+  'Host country',
+  'Participating country',
+  'Flag',
+  'National costume',
+  'Traditional instrument',
+  'Cultural reference',
+];
+
+export const eurovisionWordArrays = {
+  stage: stageWords,
+  artist: artistWords,
+  song: songWords,
+  country: countryWords
+};
+
+export const eurovisionStyleMap = {
+  'Free Space': 'free-space Square-selected',
+  stage: 'stage',
+  artist: 'artist',
+  song: 'song',
+  country: 'country'
 };
 
 export function getWordsForTheme(theme) {
   let wordArrays;
-  if (theme === 'Christmas') {
-    wordArrays = christmasWordArrays;
-  } else if (theme === 'Road Trip') {
-    wordArrays = roadTripWordArrays;
-  } else if (theme === 'Traveling by Plane') {
-    wordArrays = planeTripWordArrays;
-  }
+  switch (theme) {
+    case 'Christmas':
+      wordArrays = christmasWordArrays;
+      break;
+    case 'Road Trip':
+      wordArrays = roadTripWordArrays;
+      break;
+    case 'Traveling by Plane':
+      wordArrays = planeTripWordArrays;
+      break;
+    case 'Eurovision':
+      wordArrays = eurovisionWordArrays;
+      break;
+    default:
+      break;
+  } 
   const allWords = Object.values(wordArrays).flat();
   return allWords;
 }

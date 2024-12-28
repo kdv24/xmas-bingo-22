@@ -6,6 +6,8 @@ import {
   roadTripStyleMap,
   planeTripWordArrays,
   planeTripStyleMap,
+  eurovisionWordArrays,
+  eurovisionStyleMap,
   getWordsForTheme,
   shuffle
 } from './BingoArray';
@@ -14,9 +16,31 @@ import ToggleButton from './ToggleButton';
 import './index.css';
 import './App.css';
 
+let appTheme = 'christmas';
+
 function checkForBackgroundStyle(item, theme) {
-  const styleMap = theme === 'Christmas' ? christmasStyleMap : theme === 'Road Trip' ? roadTripStyleMap : planeTripStyleMap;
-  const wordArrays = theme === 'Christmas' ? christmasWordArrays : theme === 'Road Trip' ? roadTripWordArrays : planeTripWordArrays;
+  let styleMap;
+  let wordArrays;
+  switch (theme) {
+    case 'Christmas':
+      styleMap = christmasStyleMap;
+      wordArrays = christmasWordArrays;
+      break;
+    case 'Road Trip':
+      styleMap = roadTripStyleMap;
+      wordArrays = roadTripWordArrays;
+      break;
+    case 'Traveling by Plane':
+      styleMap = planeTripStyleMap;
+      wordArrays = planeTripWordArrays;
+      break;
+    case 'Eurovision':
+      styleMap = eurovisionStyleMap;
+      wordArrays = eurovisionWordArrays;
+      break;
+    default:
+      break;
+  }
 
   if (item.includes('Free Space')) {
     return styleMap['Free Space'];
@@ -28,7 +52,7 @@ function checkForBackgroundStyle(item, theme) {
       return value;
     }
   }
-  return 'misc';
+  return '';
 }
 
 function toTitleCase(str) {
@@ -98,16 +122,24 @@ function App() {
       const appDiv = document.getElementsByClassName('App')[0];
       switch (theme) {
         case 'Christmas':
-          appDiv.classList.remove('road-trip', 'traveling-by-plane');
+          appDiv.classList.remove('road-trip', 'traveling-by-plane', 'eurovision');
           appDiv.classList.add('christmas');
+          appTheme = 'christmas';
           break;
         case 'Road Trip':
-          appDiv.classList.remove('christmas', 'traveling-by-plane');
+          appDiv.classList.remove('christmas', 'traveling-by-plane', 'eurovision');
           appDiv.classList.add('road-trip');
+          appTheme = 'road-trip';
           break;
         case 'Traveling by Plane':
-          appDiv.classList.remove('christmas', 'road-trip');
+          appDiv.classList.remove('christmas', 'road-trip', 'eurovision');
           appDiv.classList.add('traveling-by-plane');
+          appTheme = 'traveling-by-plane';
+          break;
+        case 'Eurovision':
+          appDiv.classList.remove('christmas', 'road-trip', 'traveling-by-plane');
+          appDiv.classList.add('eurovision');
+          appTheme = 'eurovision';
           break;
         default:
           break;
@@ -115,7 +147,7 @@ function App() {
     });
     
     return (
-        <div className={`App ${theme === 'Road Trip' ? "road-trip" : theme === 'Traveling by Plane' ? "traveling-by-plane" : "christmas"}`}>
+        <div className={`App ${appTheme}`}>
             <div className="App-header">{theme} Bingo</div>
             <div className="theme-dropdown-container">
                 <label>
@@ -124,6 +156,7 @@ function App() {
                         <option value="Christmas">Christmas</option>
                         <option value="Road Trip">Road Trip</option>
                         <option value="Traveling by Plane">Traveling by Plane</option>
+                        <option value="Eurovision">Eurovision</option>
                     </select>
                 </label>
             </div>
