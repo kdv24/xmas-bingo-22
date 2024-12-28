@@ -141,8 +141,8 @@ body {
   background-color: #9faa68; /* P0cab */
 }
 
-/* Traveling by Plane Styles */
-.traveling-by-plane {
+/* Plane Travel Styles */
+.plane-travel {
   position: relative;
   background-image: linear-gradient(#87CEEB, #4682B4, #1E90FF);
 }
@@ -260,31 +260,34 @@ input:checked + .slider::before {
 
 /* Theme Dropdown Styles */
 .theme-dropdown-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
   color: #fff;
   font-weight: 600;
   position: relative; /* Add this */
 }
 
-.theme-dropdown {
-  margin-left: 10px;
+.theme-dropdown-container select {
+  background-color: white;
+  color: black;
   padding: 0.5rem;
-  padding-right: 2rem; /* Increase right padding to make room for the arrow */
-  border: 2px solid #146B38;
-  border-radius: 5px;
-  background-color: #fff;
+  width: 150px;
   font-size: 1rem;
-  color: #146B38;
-  outline: none;
-  transition: border-color 0.3s ease;
-  appearance: none; /* Remove default arrow */
+  border: none;
+  border-radius: 5px;
+  margin-left: 0.5rem;
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.theme-dropdown:focus {
+.theme-dropdown-container:focus {
   border-color: #3CB371;
 }
 
@@ -292,7 +295,6 @@ input:checked + .slider::before {
 .theme-dropdown-container::after {
   content: '\25BC';
   position: inherit;
-  top: 9px;
   right: 20px;
   pointer-events: none;
   color: #146B38;

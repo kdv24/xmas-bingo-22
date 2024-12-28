@@ -31,7 +31,7 @@ function checkForBackgroundStyle(item, theme) {
       styleMap = roadTripStyleMap;
       wordArrays = roadTripWordArrays;
       break;
-    case 'Traveling by Plane':
+    case 'Plane Travel':
       styleMap = planeTripStyleMap;
       wordArrays = planeTripWordArrays;
       break;
@@ -149,27 +149,27 @@ function App() {
       const appDiv = document.getElementsByClassName('App')[0];
       switch (theme) {
         case 'Christmas':
-          appDiv.classList.remove('road-trip', 'traveling-by-plane', 'eurovision');
+          appDiv.classList.remove('road-trip', 'plane-travel', 'eurovision');
           appDiv.classList.add('christmas');
           appTheme = 'christmas';
           break;
         case 'Road Trip':
-          appDiv.classList.remove('christmas', 'traveling-by-plane', 'eurovision');
+          appDiv.classList.remove('christmas', 'plane-travel', 'eurovision');
           appDiv.classList.add('road-trip');
           appTheme = 'road-trip';
           break;
-        case 'Traveling by Plane':
+        case 'Plane Travel':
           appDiv.classList.remove('christmas', 'road-trip', 'eurovision');
-          appDiv.classList.add('traveling-by-plane');
-          appTheme = 'traveling-by-plane';
+          appDiv.classList.add('plane-travel');
+          appTheme = 'plane-travel';
           break;
         case 'Eurovision':
-          appDiv.classList.remove('christmas', 'road-trip', 'traveling-by-plane');
+          appDiv.classList.remove('christmas', 'road-trip', 'plane-travel');
           appDiv.classList.add('eurovision');
           appTheme = 'eurovision';
           break;
         default:
-          appDiv.classList.remove('christmas', 'road-trip', 'traveling-by-plane', 'eurovision');
+          appDiv.classList.remove('christmas', 'road-trip', 'plane-travel', 'eurovision');
           appDiv.classList.add('custom-theme');
           appTheme = 'custom-theme';
           console.log('theme:', theme);
@@ -205,10 +205,10 @@ function App() {
             <div className="theme-dropdown-container">
                 <label>
                     Select Theme:
-                    <select className="theme-dropdown" value={theme} onChange={handleThemeChange}>
+                    <select value={theme} onChange={handleThemeChange}>
                         <option value="Christmas">Christmas</option>
                         <option value="Road Trip">Road Trip</option>
-                        <option value="Traveling by Plane">Traveling by Plane</option>
+                        <option value="Plane Travel">Plane Travel</option>
                         <option value="Eurovision">Eurovision</option>
                         {customThemes.map((customTheme, index) => (
                             <option key={index} value={customTheme.themeName}>{customTheme.themeName}</option>

@@ -41,7 +41,7 @@ function checkForWin(found, itemKey, theme, foundArray) {
         case 'Road Trip':
           appDiv.classList.add('national-park');
           break;
-        case 'Traveling by Plane':
+        case 'Plane Travel':
           appDiv.classList.add('clouds');
           break;
         case 'Eurovision':

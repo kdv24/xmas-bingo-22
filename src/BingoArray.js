@@ -287,7 +287,7 @@ export async function getWordsForTheme(theme) {
     case 'Road Trip':
       wordArrays = roadTripWordArrays;
       break;
-    case 'Traveling by Plane':
+    case 'Plane Travel':
       wordArrays = planeTripWordArrays;
       break;
     case 'Eurovision':
