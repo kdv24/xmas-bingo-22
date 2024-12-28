@@ -278,7 +278,7 @@ export const eurovisionStyleMap = {
   country: 'country'
 };
 
-export function getWordsForTheme(theme) {
+export async function getWordsForTheme(theme) {
   let wordArrays;
   switch (theme) {
     case 'Christmas':
@@ -294,7 +294,12 @@ export function getWordsForTheme(theme) {
       wordArrays = eurovisionWordArrays;
       break;
     default:
-      wordArrays = loadCustomTheme(theme).wordArrays;
+      const customTheme = await loadCustomTheme(theme);
+      if (customTheme) {
+        wordArrays = customTheme.wordArrays;
+      } else {
+        wordArrays = [];
+      }
       break;
   } 
   const allWords = Object.values(wordArrays).flat();
@@ -313,13 +318,13 @@ export function shuffle(array) {
  return array;
 }
 
-export function saveCustomTheme(theme) {
+export async function saveCustomTheme(theme) {
   const themes = JSON.parse(localStorage.getItem('customThemes')) || [];
   themes.push(theme);
   localStorage.setItem('customThemes', JSON.stringify(themes));
 }
 
-export function loadCustomTheme(themeName) {
+export async function loadCustomTheme(themeName) {
   const themes = JSON.parse(localStorage.getItem('customThemes')) || [];
   return themes.find(theme => theme.themeName === themeName);
 }

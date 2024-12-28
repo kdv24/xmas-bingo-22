@@ -6,14 +6,14 @@ const ThemeCreator = ({ onSave }) => {
   const [colors, setColors] = useState('');
   const [backgroundImage, setBackgroundImage] = useState('');
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const newTheme = {
       themeName,
       wordArrays: wordArrays.split(',').map(word => word.trim()),
       colors: colors.split(',').map(color => color.trim()),
       backgroundImage
     };
-    onSave(newTheme);
+    await onSave(newTheme);
   };
 
   return (

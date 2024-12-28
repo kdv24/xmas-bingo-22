@@ -105,10 +105,13 @@ function App() {
     }, [isToggled]);
 
     useEffect(() => {
-      const words = getWordsForTheme(theme);
-      const shuffledWords = shuffle(words);
-      shuffledWords[12] = 'Free Space'; // Ensure "Free Space" is always in the center
-      setFinalArray(shuffledWords.slice(0, 25));
+      const loadWords = async () => {
+        const words = await getWordsForTheme(theme);
+        const shuffledWords = shuffle(words);
+        shuffledWords[12] = 'Free Space'; // Ensure "Free Space" is always in the center
+        setFinalArray(shuffledWords.slice(0, 25));
+      };
+      loadWords();
     }, [theme]);
 
     const handleToggleChange = (newToggleState) => {
@@ -121,7 +124,7 @@ function App() {
         setFoundArray([12]); // Reset the foundArray when the theme changes
     };
 
-    const handleSaveTheme = (newTheme) => {
+    const handleSaveTheme = async (newTheme) => {
         setCustomThemes([...customThemes, newTheme]);
         setShowThemeCreator(false);
     };
