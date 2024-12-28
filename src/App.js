@@ -96,14 +96,24 @@ function App() {
 
     useEffect(() => {
       const appDiv = document.getElementsByClassName('App')[0];
-      if (theme === 'Christmas') {
-        appDiv.classList.add('christmas');
-      } else if (theme === 'Road Trip') {
-        appDiv.classList.add('road-trip');
-      } else if (theme === 'Traveling by Plane') {
-        appDiv.classList.add('traveling-by-plane');
+      switch (theme) {
+        case 'Christmas':
+          appDiv.classList.remove('road-trip', 'traveling-by-plane');
+          appDiv.classList.add('christmas');
+          break;
+        case 'Road Trip':
+          appDiv.classList.remove('christmas', 'traveling-by-plane');
+          appDiv.classList.add('road-trip');
+          break;
+        case 'Traveling by Plane':
+          appDiv.classList.remove('christmas', 'road-trip');
+          appDiv.classList.add('traveling-by-plane');
+          break;
+        default:
+          break;
       }
     });
+    
     return (
         <div className={`App ${theme === 'Road Trip' ? "road-trip" : theme === 'Traveling by Plane' ? "traveling-by-plane" : "christmas"}`}>
             <div className="App-header">{theme} Bingo</div>

@@ -34,10 +34,18 @@ function checkForWin(found, itemKey, theme, foundArray) {
     });
     if (count >= 5) {
       const appDiv = document.getElementsByClassName('App')[0];
-      if (theme === 'Road Trip') {
-        appDiv.classList.add('national-park');
-      } else {
-        appDiv.classList.add('snow');
+      switch (theme) {
+        case 'Christmas':
+          appDiv.classList.add('snow');
+          break;
+        case 'Road Trip':
+          appDiv.classList.add('national-park');
+          break;
+        case 'Traveling by Plane':
+          appDiv.classList.add('clouds');
+          break;
+        default:
+          break;
       }
     }
   })

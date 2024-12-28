@@ -146,24 +146,30 @@ body {
   background-image: linear-gradient(#87CEEB, #4682B4, #1E90FF);
 }
 
+.clouds {
+  background-image: url('../public/clouds.jpg');
+  background-repeat: no-repeat;
+  background-size: cover, contain;
+}
+
 .airport {
   position: relative;
-  background-color: #FFD700; /* Gold */
+  background-color: #f7e58a; /* Gold */
 }
 
 .in-flight {
   position: relative;
-  background-color: #FF4500; /* OrangeRed */
+  background-color: #fc8053; /* OrangeRed */
 }
 
 .destination {
   position: relative;
-  background-color: #32CD32; /* LimeGreen */
+  background-color: #76c974; /* LimeGreen */
 }
 
 .travel-misc {
   position: relative;
-  background-color: #8A2BE2; /* BlueViolet */
+  background-color: #b185dd; /* BlueViolet */
 }
 
 /* Toggle Slider */
