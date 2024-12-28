@@ -13,6 +13,7 @@ import {
 } from './BingoArray';
 import Square from './Square';
 import ToggleButton from './ToggleButton';
+import ThemeCreator from './ThemeCreator';
 import './index.css';
 import './App.css';
 
@@ -39,7 +40,7 @@ function checkForBackgroundStyle(item, theme) {
       wordArrays = eurovisionWordArrays;
       break;
     default:
-      break;
+      return '';
   }
 
   if (item.includes('Free Space')) {
@@ -71,6 +72,8 @@ function App() {
     const [theme, setTheme] = useState('Christmas');
     const [finalArray, setFinalArray] = useState([]);
     const [foundArray, setFoundArray] = useState([12]);
+    const [customThemes, setCustomThemes] = useState([]);
+    const [showThemeCreator, setShowThemeCreator] = useState(false);
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -102,10 +105,13 @@ function App() {
     }, [isToggled]);
 
     useEffect(() => {
-      const words = getWordsForTheme(theme);
-      const shuffledWords = shuffle(words);
-      shuffledWords[12] = 'Free Space'; // Ensure "Free Space" is always in the center
-      setFinalArray(shuffledWords.slice(0, 25));
+      const loadWords = async () => {
+        const words = await getWordsForTheme(theme);
+        const shuffledWords = shuffle(words);
+        shuffledWords[12] = 'Free Space'; // Ensure "Free Space" is always in the center
+        setFinalArray(shuffledWords.slice(0, 25));
+      };
+      loadWords();
     }, [theme]);
 
     const handleToggleChange = (newToggleState) => {
@@ -116,6 +122,11 @@ function App() {
         setTheme(event.target.value);
         setFinalArray([]); // Reset the board when the theme changes
         setFoundArray([12]); // Reset the foundArray when the theme changes
+    };
+
+    const handleSaveTheme = async (newTheme) => {
+        setCustomThemes([...customThemes, newTheme]);
+        setShowThemeCreator(false);
     };
 
     useEffect(() => {
@@ -157,9 +168,14 @@ function App() {
                         <option value="Road Trip">Road Trip</option>
                         <option value="Traveling by Plane">Traveling by Plane</option>
                         <option value="Eurovision">Eurovision</option>
+                        {customThemes.map((customTheme, index) => (
+                            <option key={index} value={customTheme.themeName}>{customTheme.themeName}</option>
+                        ))}
                     </select>
                 </label>
+                <button onClick={() => setShowThemeCreator(true)}>Create New Theme</button>
             </div>
+            {showThemeCreator && <ThemeCreator onSave={handleSaveTheme} />}
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);

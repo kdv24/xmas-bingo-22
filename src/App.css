@@ -312,3 +312,13 @@ input:checked + .slider::before {
     font-size: 0.5rem;
   }
 }
+
+/* Custom Theme Styles */
+.custom-theme {
+  position: relative;
+}
+
+.custom-theme-background {
+  background-repeat: no-repeat;
+  background-size: cover, contain;
+}
