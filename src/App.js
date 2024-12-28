@@ -76,6 +76,7 @@ function App() {
     const [foundArray, setFoundArray] = useState([12]);
     const [customThemes, setCustomThemes] = useState([]);
     const [showThemeCreator, setShowThemeCreator] = useState(false);
+    const [showThemeModifier, setShowThemeModifier] = useState(false);
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -124,6 +125,8 @@ function App() {
         const selectedTheme = event.target.value;
         if (selectedTheme === "Create a new theme") {
             setShowThemeCreator(true);
+        } else if (selectedTheme === "Modify a theme") {
+            setShowThemeModifier(true);
         } else {
             setTheme(selectedTheme);
             setFinalArray([]); // Reset the board when the theme changes
@@ -228,10 +231,12 @@ function App() {
                             <option key={index} value={customTheme.themeName}>{customTheme.themeName}</option>
                         ))}
                         <option value="Create a new theme">Create a new theme</option>
+                        <option value="Modify a theme">Modify a theme</option>
                     </select>
                 </label>
             </div>
             {showThemeCreator && <ThemeCreator onSave={handleSaveTheme} />}
+            {showThemeModifier && <ThemeCreator onSave={handleSaveTheme} isModify={true} existingThemes={customThemes} />}
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
