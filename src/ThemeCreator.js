@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { saveCustomTheme } from './BingoArray';
 
 const ThemeCreator = ({ onSave }) => {
@@ -16,6 +16,18 @@ const ThemeCreator = ({ onSave }) => {
     await saveCustomTheme(newTheme, backgroundColor);
     await onSave(newTheme);
   };
+
+  useEffect(() => {
+    const storedThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
+    if (!storedThemes.some(theme => theme.themeName === themeName)) {
+      const newTheme = {
+        themeName,
+        wordArrays: wordArrays.split(',').map(word => word.trim()),
+        backgroundColor: backgroundColor
+      };
+      localStorage.setItem('customThemes', JSON.stringify([...storedThemes, newTheme]));
+    }
+  }, [themeName, wordArrays, backgroundColor]);
 
   return (
     <div>

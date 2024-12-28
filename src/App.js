@@ -189,6 +189,15 @@ function App() {
           break;
       }
     });
+
+    useEffect(() => {
+      const storedThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
+      setCustomThemes(storedThemes);
+    }, []);
+
+    useEffect(() => {
+      localStorage.setItem('customThemes', JSON.stringify(customThemes));
+    }, [customThemes]);
     
     return (
         <div className={`App ${appTheme}`}>
