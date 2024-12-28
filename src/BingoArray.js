@@ -294,6 +294,7 @@ export function getWordsForTheme(theme) {
       wordArrays = eurovisionWordArrays;
       break;
     default:
+      wordArrays = loadCustomTheme(theme).wordArrays;
       break;
   } 
   const allWords = Object.values(wordArrays).flat();
@@ -310,4 +311,15 @@ export function shuffle(array) {
   }
 
  return array;
+}
+
+export function saveCustomTheme(theme) {
+  const themes = JSON.parse(localStorage.getItem('customThemes')) || [];
+  themes.push(theme);
+  localStorage.setItem('customThemes', JSON.stringify(themes));
+}
+
+export function loadCustomTheme(themeName) {
+  const themes = JSON.parse(localStorage.getItem('customThemes')) || [];
+  return themes.find(theme => theme.themeName === themeName);
 }

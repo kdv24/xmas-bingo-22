@@ -13,6 +13,7 @@ import {
 } from './BingoArray';
 import Square from './Square';
 import ToggleButton from './ToggleButton';
+import ThemeCreator from './ThemeCreator';
 import './index.css';
 import './App.css';
 
@@ -71,6 +72,8 @@ function App() {
     const [theme, setTheme] = useState('Christmas');
     const [finalArray, setFinalArray] = useState([]);
     const [foundArray, setFoundArray] = useState([12]);
+    const [customThemes, setCustomThemes] = useState([]);
+    const [showThemeCreator, setShowThemeCreator] = useState(false);
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -118,6 +121,11 @@ function App() {
         setFoundArray([12]); // Reset the foundArray when the theme changes
     };
 
+    const handleSaveTheme = (newTheme) => {
+        setCustomThemes([...customThemes, newTheme]);
+        setShowThemeCreator(false);
+    };
+
     useEffect(() => {
       const appDiv = document.getElementsByClassName('App')[0];
       switch (theme) {
@@ -157,9 +165,14 @@ function App() {
                         <option value="Road Trip">Road Trip</option>
                         <option value="Traveling by Plane">Traveling by Plane</option>
                         <option value="Eurovision">Eurovision</option>
+                        {customThemes.map((customTheme, index) => (
+                            <option key={index} value={customTheme.themeName}>{customTheme.themeName}</option>
+                        ))}
                     </select>
                 </label>
+                <button onClick={() => setShowThemeCreator(true)}>Create New Theme</button>
             </div>
+            {showThemeCreator && <ThemeCreator onSave={handleSaveTheme} />}
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
