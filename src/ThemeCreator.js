@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { saveCustomTheme } from './BingoArray';
 
 const ThemeCreator = ({ onSave }) => {
   const [themeName, setThemeName] = useState('');
@@ -13,6 +14,7 @@ const ThemeCreator = ({ onSave }) => {
       colors: colors.split(',').map(color => color.trim()),
       backgroundImage
     };
+    await saveCustomTheme(newTheme);
     await onSave(newTheme);
   };
 

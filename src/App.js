@@ -40,7 +40,7 @@ function checkForBackgroundStyle(item, theme) {
       wordArrays = eurovisionWordArrays;
       break;
     default:
-      break;
+      return '';
   }
 
   if (item.includes('Free Space')) {
