@@ -44,6 +44,9 @@ function checkForWin(found, itemKey, theme, foundArray) {
         case 'Traveling by Plane':
           appDiv.classList.add('clouds');
           break;
+        case 'Eurovision':
+          appDiv.classList.add('eurovision-background');
+          break;
         default:
           break;
       }

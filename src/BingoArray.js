@@ -210,6 +210,12 @@ const stageWords = [
   'LED screens',
   'Stage props',
   'Lighting effects',
+  'Movable LED cubes',
+  'Cross-shaped stage',
+  '360-degree stage',
+  'Follow-spot systems',
+  'Video installation',
+  'Laser lighting',
 ];
 
 const artistWords = [
@@ -219,6 +225,12 @@ const artistWords = [
   'Dance routine',
   'Special guest',
   'Vocal effects',
+  'Solo performer',
+  'Dramatic gestures',
+  'Costume reveal',
+  'Performance styling',
+  'Stage persona',
+  'Choreographed moment',
 ];
 
 const songWords = [
@@ -228,6 +240,12 @@ const songWords = [
   'Bridge',
   'Key change',
   'High note',
+  'Two-beat rhythm',
+  '16-bar formula',
+  'Upbeat tempo',
+  'Catchy hook',
+  'Instrumental solo',
+  'Repeating lyrics',
 ];
 
 const countryWords = [
@@ -237,6 +255,12 @@ const countryWords = [
   'National costume',
   'Traditional instrument',
   'Cultural reference',
+  'National language song',
+  'Ethnic music elements',
+  'Cultural ambassador',
+  'Regional musical style',
+  'Traditional dress',
+  'Folk music influence',
 ];
 
 export const eurovisionWordArrays = {
