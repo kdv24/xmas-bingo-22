@@ -119,12 +119,28 @@ function App() {
     };
 
     const handleThemeChange = (event) => {
-        setTheme(event.target.value);
-        setFinalArray([]); // Reset the board when the theme changes
-        setFoundArray([12]); // Reset the foundArray when the theme changes
+        const selectedTheme = event.target.value;
+        if (selectedTheme === "Create a new theme") {
+            setShowThemeCreator(true);
+        } else {
+            setTheme(selectedTheme);
+            setFinalArray([]); // Reset the board when the theme changes
+            setFoundArray([12]); // Reset the foundArray when the theme changes
+        }
     };
 
     const handleSaveTheme = async (newTheme) => {
+        const defaultColors = ['red', 'green', 'blue', 'yellow'];
+        const defaultUrl = 'https://google.com';
+
+        if (!newTheme.colors || newTheme.colors.length === 0) {
+            newTheme.colors = defaultColors;
+        }
+
+        if (!newTheme.backgroundImage) {
+            newTheme.backgroundImage = defaultUrl;
+        }
+
         setCustomThemes([...customThemes, newTheme]);
         setShowThemeCreator(false);
     };
@@ -171,9 +187,9 @@ function App() {
                         {customThemes.map((customTheme, index) => (
                             <option key={index} value={customTheme.themeName}>{customTheme.themeName}</option>
                         ))}
+                        <option value="Create a new theme">Create a new theme</option>
                     </select>
                 </label>
-                <button onClick={() => setShowThemeCreator(true)}>Create New Theme</button>
             </div>
             {showThemeCreator && <ThemeCreator onSave={handleSaveTheme} />}
             <div className="grid-5-by-5">

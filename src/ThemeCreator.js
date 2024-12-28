@@ -8,11 +8,14 @@ const ThemeCreator = ({ onSave }) => {
   const [backgroundImage, setBackgroundImage] = useState('');
 
   const handleSave = async () => {
+    const defaultColors = ['red', 'green', 'blue', 'yellow'];
+    const defaultUrl = 'https://google.com';
+
     const newTheme = {
       themeName,
       wordArrays: wordArrays.split(',').map(word => word.trim()),
-      colors: colors.split(',').map(color => color.trim()),
-      backgroundImage
+      colors: colors ? colors.split(',').map(color => color.trim()) : defaultColors,
+      backgroundImage: backgroundImage || defaultUrl
     };
     await saveCustomTheme(newTheme);
     await onSave(newTheme);
