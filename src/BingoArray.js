@@ -326,5 +326,5 @@ export async function saveCustomTheme(theme) {
 
 export async function loadCustomTheme(themeName) {
   const themes = JSON.parse(localStorage.getItem('customThemes')) || [];
-  return themes.find(theme => theme.themeName === themeName);
+  return Array.isArray(themes) ? themes.find(theme => theme.themeName === themeName) : null;
 }
