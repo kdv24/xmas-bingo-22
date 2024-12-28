@@ -59,18 +59,13 @@ function Square(props) {
   return (
     <div 
       id={`bingo-square-${props.item}`}
-      className={found === false ? `Square ${props.className}` : `Square-selected ${props.className}`}
+      className={(found === true || props.item === "Free Space") ? `Square-selected ${props.className}` : `Square ${props.className}` }
       onClick={() => {
         setFound(!found);
         checkForWin(!found, props.itemKey, props.theme, props.foundArray);
-      }
-    }
+      }}
     >
-      {props.item === "Free Space" ? (
-        <div className="free-space">{props.item}</div>
-      ) : (
-        props.item
-      )}
+        {props.item}
     </div>
   );
 }

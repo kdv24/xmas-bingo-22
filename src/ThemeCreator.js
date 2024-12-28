@@ -4,20 +4,16 @@ import { saveCustomTheme } from './BingoArray';
 const ThemeCreator = ({ onSave }) => {
   const [themeName, setThemeName] = useState('');
   const [wordArrays, setWordArrays] = useState('');
-  const [colors, setColors] = useState('');
-  const [backgroundImage, setBackgroundImage] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState('');
 
   const handleSave = async () => {
-    const defaultColors = ['red', 'green', 'blue', 'yellow'];
-    const defaultUrl = 'https://google.com';
 
     const newTheme = {
       themeName,
       wordArrays: wordArrays.split(',').map(word => word.trim()),
-      colors: colors ? colors.split(',').map(color => color.trim()) : defaultColors,
-      backgroundImage: backgroundImage || defaultUrl
+      backgroundColor: backgroundColor
     };
-    await saveCustomTheme(newTheme);
+    await saveCustomTheme(newTheme, backgroundColor);
     await onSave(newTheme);
   };
 
@@ -33,7 +29,7 @@ const ThemeCreator = ({ onSave }) => {
         />
       </div>
       <div>
-        <label>Word Arrays (comma separated):</label>
+        <label>Add bingo square words (comma separated):</label>
         <input
           type="text"
           value={wordArrays}
@@ -41,19 +37,11 @@ const ThemeCreator = ({ onSave }) => {
         />
       </div>
       <div>
-        <label>Colors (comma separated):</label>
-        <input
+      <label>Choose a background color:</label>
+      <input
           type="text"
-          value={colors}
-          onChange={(e) => setColors(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Background Image URL:</label>
-        <input
-          type="text"
-          value={backgroundImage}
-          onChange={(e) => setBackgroundImage(e.target.value)}
+          value={backgroundColor}
+          onChange={(e) => setBackgroundColor(e.target.value)}
         />
       </div>
       <button onClick={handleSave}>Save Theme</button>

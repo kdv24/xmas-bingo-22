@@ -318,7 +318,7 @@ export function shuffle(array) {
  return array;
 }
 
-export async function saveCustomTheme(theme) {
+export async function saveCustomTheme(theme, backgroundColor) {
   let themes = JSON.parse(localStorage.getItem('customThemes')) || [];
   if (!Array.isArray(themes)) {
     themes = [];
@@ -326,6 +326,7 @@ export async function saveCustomTheme(theme) {
   themes.push(theme);
   console.log('Themes after push:', themes);
   localStorage.setItem('customThemes', JSON.stringify(themes));
+  localStorage.setItem('customThemeBackground', backgroundColor);  
 }
 
 export async function loadCustomTheme(themeName) {
