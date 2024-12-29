@@ -251,6 +251,7 @@ function App() {
                       isToggled={isToggled}
                       theme={theme}
                       foundArray={foundArray}
+                      setFoundArray={setFoundArray}
                     />
                   );
                 })}
