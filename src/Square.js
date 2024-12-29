@@ -66,9 +66,6 @@ function checkForWin(found, itemKey, theme, foundArray) {
         case 'Eurovision':
           appDiv.classList.add('eurovision-background');
           break;
-        // case 'custom-theme':
-        //   setConfettiBackground(theme);
-        //   break;
         default:
           break;
       }

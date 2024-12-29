@@ -233,7 +233,7 @@ function App() {
                 overlayClassName="overlay"
             >
                 <ThemeCreator onSave={handleSaveTheme} />
-                <button onClick={closeModal}>Close</button>
+                <button onClick={closeModal}>Cancel</button>
             </Modal>
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
