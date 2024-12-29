@@ -186,14 +186,12 @@ function App() {
           let customThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
           let customTheme = customThemes.find(t => t.themeName === theme);
           let backgroundColor = customTheme ? customTheme.backgroundColor : null;
-          console.log('backgroundImage: ', backgroundColor);
           
           // Check if backgroundColor is not null or undefined
           if (backgroundColor) {
             // Set the background image to a linear gradient of the background color.
             appDiv.style.setProperty('background-image', `linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
           } else {
-            console.log('No custom background color found in localStorage');
             // Setting a default color
             appDiv.style.setProperty('background-image', 'linear-gradient(purple, purple, purple)');
           }          

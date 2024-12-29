@@ -22,9 +22,7 @@ function setConfettiBackground(theme) {
     let customThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
     let customTheme = customThemes.find(t => t.themeName === theme);
     let backgroundColor = customTheme ? customTheme.backgroundColor : null;
-    console.log('backgroundImage: ', backgroundColor);
     if (backgroundColor) {
-      console.log('Setting confetti background color');
       appDiv.style.setProperty('background-image', `url('./blue-pink-confetti.png'), linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
     } else {
       appDiv.style.setProperty('background-image', `url('https://www.transparenttextures.com/patterns/confetti.png'), linear-gradient(purple, purple, purple)`);
@@ -50,7 +48,6 @@ function checkForWin(found, itemKey, theme, foundArray) {
     });
     if (count >= 5) {
       const appDiv = document.getElementsByClassName('App')[0];
-      console.log('theme in checking for win: ', theme)
       if (theme !== 'Christmas' && theme !== 'Road Trip' && theme !== 'Plane Travel' && theme !== 'Eurovision') {
         appDiv.classList.add('confetti');
         setConfettiBackground(theme);
