@@ -372,8 +372,16 @@ input:checked + .slider::before {
   margin-bottom: 10px;
   width: -webkit-fill-available;
   height: 40px;
+  padding: 0px 10px;
+  font-size: 1rem;
 }
 
+.modal-footnote {
+  display: flex;
+  justify-content: left;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
 .theme-name {
   display: flex;
   flex-direction: row;
@@ -388,11 +396,26 @@ input:checked + .slider::before {
   width: -webkit-fill-available;
 }
 
+.word-arrays input {
+  margin-bottom: 0px;
+}
+
 .background-color label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: -webkit-fill-available;
+}
+
+.background-color input {
+  margin-bottom: 20px;
+}
+
+.modal-button {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: lightblue;
+  margin: 10px 0px;
 }
 
 .overlay {
