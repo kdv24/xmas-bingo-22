@@ -142,6 +142,7 @@ function Square(props) {
         setFound(!found);
         checkForWin(!found, props.itemKey, props.theme, props.foundArray);
       }}
+      style={{ backgroundPosition: 'center' }} // Ensure the background is centered
     >
         {props.item}
     </div>

@@ -188,10 +188,12 @@ function App() {
           if (backgroundColor) {
             // Set the background image to a linear gradient of the background color.
             appDiv.style.setProperty('background-image', `linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
+            appDiv.style.setProperty('background-position', 'center'); // Ensure the background is centered
           } else {
             console.log('No custom background color found in localStorage');
             // Setting a default color
             appDiv.style.setProperty('background-image', 'linear-gradient(purple, purple, purple)');
+            appDiv.style.setProperty('background-position', 'center'); // Ensure the background is centered
           }          
           break;
       }
