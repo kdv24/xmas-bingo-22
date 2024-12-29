@@ -308,7 +308,6 @@ export async function getWordsForTheme(theme) {
 
 export function shuffle(array) {
   let currentIndex = array.length, randomIndex;
-
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
@@ -324,7 +323,6 @@ export async function saveCustomTheme(theme, backgroundColor) {
     themes = [];
   }
   themes.push(theme);
-  console.log('Themes after push:', themes);
   localStorage.setItem('customThemes', JSON.stringify(themes));
   localStorage.setItem('customThemeBackground', backgroundColor);  
 }

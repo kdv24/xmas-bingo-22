@@ -16,6 +16,20 @@ const winningSets = [
   [4, 8, 12, 16, 20]
 ];
 
+function setConfettiBackground(theme) {
+  const appDiv = document.getElementsByClassName('App')[0];
+  if (theme !== 'Christmas' && theme !== 'Road Trip' && theme !== 'Plane Travel' && theme !== 'Eurovision') {
+    let backgroundColor = localStorage.getItem('customThemeBackground');
+    console.log('backgroundImage: ', backgroundColor);
+    if (backgroundColor) {
+      console.log('Setting confetti background color');
+      appDiv.style.setProperty('background-image', `url('./blue-pink-confetti.png'), linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
+    } else {
+      appDiv.style.setProperty('background-image', `url('https://www.transparenttextures.com/patterns/confetti.png'), linear-gradient(purple, purple, purple)`);
+    }
+  }
+}
+
 function checkForWin(found, itemKey, theme, foundArray) {
   if (found === true && !foundArray.includes(found)) {
     foundArray.push(itemKey);
@@ -34,6 +48,11 @@ function checkForWin(found, itemKey, theme, foundArray) {
     });
     if (count >= 5) {
       const appDiv = document.getElementsByClassName('App')[0];
+      console.log('theme in checking for win: ', theme)
+      if (theme !== 'Christmas' && theme !== 'Road Trip' && theme !== 'Plane Travel' && theme !== 'Eurovision') {
+        appDiv.classList.add('confetti');
+        setConfettiBackground(theme);
+      }
       switch (theme) {
         case 'Christmas':
           appDiv.classList.add('snow');
@@ -47,9 +66,9 @@ function checkForWin(found, itemKey, theme, foundArray) {
         case 'Eurovision':
           appDiv.classList.add('eurovision-background');
           break;
-        case 'custom-theme':
-          setConfettiBackground(theme);
-          break;
+        // case 'custom-theme':
+        //   setConfettiBackground(theme);
+        //   break;
         default:
           break;
       }
