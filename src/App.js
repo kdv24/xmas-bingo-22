@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { 
   christmasStyleMap,
   christmasWordArrays,
@@ -77,6 +78,7 @@ function App() {
     const [foundArray, setFoundArray] = useState([12]);
     const [customThemes, setCustomThemes] = useState([]);
     const [showThemeCreator, setShowThemeCreator] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -125,6 +127,7 @@ function App() {
         const selectedTheme = event.target.value;
         if (selectedTheme === "Create a new theme") {
             setShowThemeCreator(true);
+            setIsModalOpen(true);
         } else {
             setTheme(selectedTheme);
             setFinalArray([]); // Reset the board when the theme changes
@@ -146,6 +149,11 @@ function App() {
 
         setCustomThemes([...customThemes, newTheme]);
         setShowThemeCreator(false);
+        setIsModalOpen(false);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     useEffect(() => {
@@ -220,7 +228,16 @@ function App() {
                     </select>
                 </label>
             </div>
-            {showThemeCreator && <ThemeCreator onSave={handleSaveTheme} />}
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                contentLabel="Create a New Theme"
+                className="modal"
+                overlayClassName="overlay"
+            >
+                <ThemeCreator onSave={handleSaveTheme} />
+                <button onClick={closeModal}>Close</button>
+            </Modal>
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);

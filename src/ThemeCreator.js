@@ -30,7 +30,7 @@ const ThemeCreator = ({ onSave }) => {
   }, [themeName, wordArrays, backgroundColor]);
 
   return (
-    <div>
+    <div className="modal-content">
       <h2>Create a New Theme</h2>
       <div>
         <label>Theme Name:</label>
@@ -57,6 +57,7 @@ const ThemeCreator = ({ onSave }) => {
         />
       </div>
       <button onClick={handleSave}>Save Theme</button>
+      <button onClick={() => onSave(null)}>Close</button>
     </div>
   );
 };
