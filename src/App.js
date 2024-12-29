@@ -56,15 +56,18 @@ function checkForBackgroundStyle(item, theme) {
   return '';
 }
 
-function toTitleCase(str) {
-   return str.toLowerCase().split(" ").map(word => {
-    if (word === "atm") {
-      return word.toUpperCase();
-    }
-    else {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }
-   }).join(" ");
+function toTitleCase(str, theme) {
+  if (['Christmas', 'Road Trip', 'Plane Travel', 'Eurovision'].includes(theme)) {
+    return str.toLowerCase().split(" ").map(word => {
+      if (word === "atm") {
+        return word.toUpperCase();
+      }
+      else {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }
+    }).join(" ");
+  }
+  return str;
 }
 
 function App() {
@@ -221,7 +224,7 @@ function App() {
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
-                  const titleCaseItem = toTitleCase(item);
+                  const titleCaseItem = toTitleCase(item, theme);
                   if (isToggled) {
                     passedClass += " is-toggled";
                 }
