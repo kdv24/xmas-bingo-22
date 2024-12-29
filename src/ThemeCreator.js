@@ -50,7 +50,7 @@ const ThemeCreator = ({ onSave }) => {
       </div>
       <div className="modal-footnote">*These only last until you refresh your browser, so save them elsewhere if you want to use them again.</div>
       <div className="modal-section background-color">
-      <label>Choose a background color (#hexcode or color name okay):</label>
+      <label>Background color by name or&nbsp; <a href="https://htmlcolorcodes.com/">#hexcode</a>:</label>
       <input
           type="text"
           value={backgroundColor}
