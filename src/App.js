@@ -77,7 +77,6 @@ function App() {
     const [finalArray, setFinalArray] = useState([]);
     const [foundArray, setFoundArray] = useState([12]);
     const [customThemes, setCustomThemes] = useState([]);
-    const [showThemeCreator, setShowThemeCreator] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Update the Square-selected class when isToggled changes
@@ -126,7 +125,6 @@ function App() {
     const handleThemeChange = (event) => {
         const selectedTheme = event.target.value;
         if (selectedTheme === "Create a new theme") {
-            setShowThemeCreator(true);
             setIsModalOpen(true);
         } else {
             setTheme(selectedTheme);
@@ -148,7 +146,6 @@ function App() {
         }
 
         setCustomThemes([...customThemes, newTheme]);
-        setShowThemeCreator(false);
         setIsModalOpen(false);
     };
 
