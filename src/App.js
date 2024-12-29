@@ -229,6 +229,7 @@ function App() {
                 </label>
             </div>
             <Modal
+                appElement={document.getElementById('root')}
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Create a New Theme"

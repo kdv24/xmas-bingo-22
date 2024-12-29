@@ -31,8 +31,8 @@ const ThemeCreator = ({ onSave }) => {
 
   return (
     <div className="modal-content">
-      <h2>Create a New Theme</h2>
-      <div>
+      <h2 className="modal-title">Create a New Theme</h2>
+      <div className="modal-section theme-name">
         <label>Theme Name:</label>
         <input
           type="text"
@@ -40,7 +40,7 @@ const ThemeCreator = ({ onSave }) => {
           onChange={(e) => setThemeName(e.target.value)}
         />
       </div>
-      <div>
+      <div className="modal-section word-arrays">
         <label>Add bingo square words (comma separated):</label>
         <input
           type="text"
@@ -48,7 +48,7 @@ const ThemeCreator = ({ onSave }) => {
           onChange={(e) => setWordArrays(e.target.value)}
         />
       </div>
-      <div>
+      <div className="modal-section background-color">
       <label>Choose a background color:</label>
       <input
           type="text"
@@ -57,7 +57,6 @@ const ThemeCreator = ({ onSave }) => {
         />
       </div>
       <button onClick={handleSave}>Save Theme</button>
-      <button onClick={() => onSave(null)}>Close</button>
     </div>
   );
 };
