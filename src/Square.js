@@ -39,6 +39,8 @@ function checkForWin(found, itemKey, theme, foundArray) {
     foundArray.splice(foundIndex, 1);
   }
 
+  let isWinning = false;
+
   winningSets.forEach((winningSet) => {
     let count = 0;
     winningSet.forEach((winningItem) => {
@@ -47,6 +49,7 @@ function checkForWin(found, itemKey, theme, foundArray) {
       }
     });
     if (count >= 5) {
+      isWinning = true;
       const appDiv = document.getElementsByClassName('App')[0];
       console.log('theme in checking for win: ', theme)
       if (theme !== 'Christmas' && theme !== 'Road Trip' && theme !== 'Plane Travel' && theme !== 'Eurovision') {
@@ -70,7 +73,35 @@ function checkForWin(found, itemKey, theme, foundArray) {
           break;
       }
     }
-  })
+  });
+
+  if (!isWinning) {
+    const appDiv = document.getElementsByClassName('App')[0];
+    appDiv.classList.remove('confetti', 'snow', 'national-park', 'clouds', 'eurovision-background');
+    switch (theme) {
+      case 'Christmas':
+        appDiv.classList.add('christmas');
+        break;
+      case 'Road Trip':
+        appDiv.classList.add('road-trip');
+        break;
+      case 'Plane Travel':
+        appDiv.classList.add('plane-travel');
+        break;
+      case 'Eurovision':
+        appDiv.classList.add('eurovision');
+        break;
+      default:
+        appDiv.classList.add('custom-theme');
+        let backgroundColor = localStorage.getItem('customThemeBackground');
+        if (backgroundColor) {
+          appDiv.style.setProperty('background-image', `linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
+        } else {
+          appDiv.style.setProperty('background-image', 'linear-gradient(purple, purple, purple)');
+        }
+        break;
+    }
+  }
 }
 
 function Square(props) {
