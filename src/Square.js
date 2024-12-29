@@ -19,7 +19,9 @@ const winningSets = [
 function setConfettiBackground(theme) {
   const appDiv = document.getElementsByClassName('App')[0];
   if (theme !== 'Christmas' && theme !== 'Road Trip' && theme !== 'Plane Travel' && theme !== 'Eurovision') {
-    let backgroundColor = localStorage.getItem('customThemeBackground');
+    let customThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
+    let customTheme = customThemes.find(t => t.themeName === theme);
+    let backgroundColor = customTheme ? customTheme.backgroundColor : null;
     console.log('backgroundImage: ', backgroundColor);
     if (backgroundColor) {
       console.log('Setting confetti background color');

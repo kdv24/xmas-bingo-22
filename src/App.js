@@ -130,6 +130,8 @@ function App() {
             setTheme(selectedTheme);
             setFinalArray([]); // Reset the board when the theme changes
             setFoundArray([12]); // Reset the foundArray when the theme changes
+            const appDiv = document.getElementsByClassName('App')[0];
+            appDiv.style.removeProperty('background-image'); // Reset the background color when switching to a non-custom theme
         }
     };
 
@@ -181,7 +183,9 @@ function App() {
           appDiv.classList.add('custom-theme');
           appTheme = 'custom-theme';
           
-          let backgroundColor = localStorage.getItem('customThemeBackground');
+          let customThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
+          let customTheme = customThemes.find(t => t.themeName === theme);
+          let backgroundColor = customTheme ? customTheme.backgroundColor : null;
           console.log('backgroundImage: ', backgroundColor);
           
           // Check if backgroundColor is not null or undefined
@@ -195,7 +199,7 @@ function App() {
           }          
           break;
       }
-    });
+    }, [theme]);
 
     useEffect(() => {
       const storedThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
