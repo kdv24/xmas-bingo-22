@@ -71,6 +71,59 @@ function toTitleCase(str, theme) {
   return str;
 }
 
+function setConfettiBackground(theme) {
+  const appDiv = document.getElementsByClassName('App')[0];
+  if (theme === 'custom-theme') {
+    let backgroundColor = localStorage.getItem('customThemeBackground');
+    if (backgroundColor) {
+      appDiv.style.setProperty('background-image', `url('https://www.transparenttextures.com/patterns/confetti.png'), linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
+    } else {
+      appDiv.style.setProperty('background-image', 'url('https://www.transparenttextures.com/patterns/confetti.png'), linear-gradient(purple, purple, purple)');
+    }
+  }
+}
+
+function checkForWin(found, itemKey, theme, foundArray) {
+  if (found === true && !foundArray.includes(found)) {
+    foundArray.push(itemKey);
+  }
+  else if (found === false) {
+    let foundIndex = foundArray.indexOf(itemKey);
+    foundArray.splice(foundIndex, 1);
+  }
+
+  winningSets.forEach((winningSet) => {
+    let count = 0;
+    winningSet.forEach((winningItem) => {
+      if (foundArray.includes(winningItem)) {
+        count += 1;
+      }
+    });
+    if (count >= 5) {
+      const appDiv = document.getElementsByClassName('App')[0];
+      switch (theme) {
+        case 'Christmas':
+          appDiv.classList.add('snow');
+          break;
+        case 'Road Trip':
+          appDiv.classList.add('national-park');
+          break;
+        case 'Plane Travel':
+          appDiv.classList.add('clouds');
+          break;
+        case 'Eurovision':
+          appDiv.classList.add('eurovision-background');
+          break;
+        case 'custom-theme':
+          setConfettiBackground(theme);
+          break;
+        default:
+          break;
+      }
+    }
+  })
+}
+
 function App() {
     const [isToggled, setIsToggled] = useState(false);
     const [theme, setTheme] = useState('Christmas');
