@@ -1,5 +1,4 @@
-import React, {useCallback, useState} from "react";
-
+import React, {useCallback, useState, useEffect} from "react";
 
 const winningSets = [
   [0, 1, 2, 3, 4],
@@ -23,11 +22,60 @@ function setConfettiBackground(theme) {
     console.log('backgroundImage: ', backgroundColor);
     if (backgroundColor) {
       console.log('Setting confetti background color');
-      appDiv.style.setProperty('background-image', `url('./blue-pink-confetti.png'), linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
+      appDiv.style.setProperty('background', `linear-gradient(${backgroundColor}, ${backgroundColor}, ${backgroundColor})`);
+      createConfettiEffect(appDiv);
     } else {
-      appDiv.style.setProperty('background-image', `url('https://www.transparenttextures.com/patterns/confetti.png'), linear-gradient(purple, purple, purple)`);
+      appDiv.style.setProperty('background', 'linear-gradient(purple, purple, purple)');
+      createConfettiEffect(appDiv);
     }
   }
+}
+
+function createConfettiEffect(container) {
+  const confettiContainer = document.createElement('div');
+  confettiContainer.id = 'confetti-container';
+
+  // Create multiple confetti elements
+  for (let i = 0; i < 50; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    confetti.style.animationDelay = `${Math.random() * 5}s`;
+    confettiContainer.appendChild(confetti);
+  }
+
+  container.appendChild(confettiContainer);
+
+  // Add CSS for confetti
+  const style = document.createElement('style');
+  style.textContent = `
+    #confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.5);
+      animation: confetti-fall linear infinite;
+    }
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  `;
+  document.head.appendChild(style);
 }
 
 function checkForWin(found, itemKey, theme, foundArray) {
@@ -66,9 +114,6 @@ function checkForWin(found, itemKey, theme, foundArray) {
         case 'Eurovision':
           appDiv.classList.add('eurovision-background');
           break;
-        // case 'custom-theme':
-        //   setConfettiBackground(theme);
-        //   break;
         default:
           break;
       }
@@ -78,6 +123,17 @@ function checkForWin(found, itemKey, theme, foundArray) {
 
 function Square(props) {
   const [found, setFound] = useToggle(false);
+
+  useEffect(() => {
+    // Clean up confetti when component unmounts
+    return () => {
+      const confettiContainer = document.getElementById('confetti-container');
+      if (confettiContainer) {
+        confettiContainer.remove();
+      }
+    };
+  }, []);
+
   return (
     <div 
       id={`bingo-square-${props.item}`}
