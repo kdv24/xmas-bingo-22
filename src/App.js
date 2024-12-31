@@ -166,25 +166,32 @@ function App() {
 
     const deleteFromGoogleSheet = async (themeName) => {
       const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
-      const formData = new FormData();
-      formData.append('themeName', themeName);
-  
+
       try {
         const response = await fetch(scriptURL, {
-          method: 'DELETE',
-          body: formData,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            action: 'delete',
+            themeName: themeName
+          }),
         });
-  
+
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-  
+
         const result = await response.json();
         console.log('Success:', result);
+        return result;
       } catch (error) {
         console.error('Error:', error);
+        throw error;
       }
     };
+
 
 
     const deleteThemeFromLocalStorage = (themeName) => {
