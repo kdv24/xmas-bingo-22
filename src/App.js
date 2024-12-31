@@ -164,35 +164,34 @@ function App() {
         setIsDeleteModalOpen(false);
     };
 
-    const deleteFromGoogleSheet = async (themeName) => {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
+    // NOT WORKING RIGHT NOW DUE TO CORS ISSUES
+    // const deleteFromGoogleSheet = async (themeName) => {
+    //   const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
 
-      try {
-        const response = await fetch(scriptURL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            action: 'delete',
-            themeName: themeName
-          }),
-        });
+    //   try {
+    //     const response = await fetch(scriptURL, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({
+    //         action: 'delete',
+    //         themeName: themeName
+    //       }),
+    //     });
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+    //     if (!response.ok) {
+    //       throw new Error('Network response was not ok');
+    //     }
 
-        const result = await response.json();
-        console.log('Success:', result);
-        return result;
-      } catch (error) {
-        console.error('Error:', error);
-        throw error;
-      }
-    };
-
-
+    //     const result = await response.json();
+    //     console.log('Success:', result);
+    //     return result;
+    //   } catch (error) {
+    //     console.error('Error:', error);
+    //     throw error;
+    //   }
+    // };
 
     const deleteThemeFromLocalStorage = (themeName) => {
       const storedThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
@@ -204,11 +203,13 @@ function App() {
         const updatedThemes = customThemes.filter(theme => theme.themeName !== themeToDelete);
         setCustomThemes(updatedThemes);
         // Code to delete the theme from Google Sheets 
-        deleteFromGoogleSheet(themeToDelete);
+        // deleteFromGoogleSheet(themeToDelete);
         deleteThemeFromLocalStorage(themeToDelete);
         setIsDeleteModalOpen(false);
         if (theme === themeToDelete) {
             setTheme('Christmas');
+            const appDiv = document.getElementsByClassName('App')[0];
+            appDiv.style.removeProperty('background-image');
         }
     };
 
