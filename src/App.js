@@ -155,6 +155,12 @@ function App() {
         setIsModalOpen(false);
     };
 
+    const deleteTheme = async (themeName) => {
+        const updatedThemes = customThemes.filter(theme => theme.themeName !== themeName);
+        setCustomThemes(updatedThemes);
+        // Add code to delete the theme from Google Sheets here
+    };
+
     useEffect(() => {
       const appDiv = document.getElementsByClassName('App')[0];
       switch (theme) {
@@ -220,7 +226,10 @@ function App() {
                         <option value="Plane Travel">Plane Travel</option>
                         <option value="Eurovision">Eurovision</option>
                         {customThemes.map((customTheme, index) => (
-                            <option key={index} value={customTheme.themeName}>{customTheme.themeName}</option>
+                            <option key={index} value={customTheme.themeName}>
+                                {customTheme.themeName}
+                                <span onClick={() => deleteTheme(customTheme.themeName)}> x</span>
+                            </option>
                         ))}
                         <option value="Create a new theme">Create a new theme</option>
                     </select>
