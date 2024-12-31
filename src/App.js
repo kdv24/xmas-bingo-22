@@ -228,11 +228,13 @@ function App() {
                         {customThemes.map((customTheme, index) => (
                             <option key={index} value={customTheme.themeName}>
                                 {customTheme.themeName}
-                                <span onClick={() => deleteTheme(customTheme.themeName)}> x</span>
                             </option>
                         ))}
                         <option value="Create a new theme">Create a new theme</option>
                     </select>
+                    {customThemes.map((customTheme, index) => (
+                        <button key={index} onClick={() => deleteTheme(customTheme.themeName)}>x</button>
+                    ))}
                 </label>
             </div>
             <Modal
