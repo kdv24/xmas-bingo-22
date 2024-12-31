@@ -6,8 +6,31 @@ const ThemeCreator = ({ onSave }) => {
   const [wordArrays, setWordArrays] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
 
-  const handleSave = async () => {
+  const saveToGoogleSheet = async (themeData) => {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
+    const formData = new FormData();
+    formData.append('themeName', themeData.themeName);
+    formData.append('wordArrays', themeData.wordArrays.join(', '));
+    formData.append('backgroundColor', themeData.backgroundColor);
 
+    try {
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleSave = async () => {
     const newTheme = {
       themeName,
       wordArrays: wordArrays.split(',').map(word => word.trim()),
@@ -15,6 +38,7 @@ const ThemeCreator = ({ onSave }) => {
     };
     await saveCustomTheme(newTheme, backgroundColor);
     await onSave(newTheme);
+    await saveToGoogleSheet(newTheme);
   };
 
   useEffect(() => {
