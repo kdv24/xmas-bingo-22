@@ -78,6 +78,8 @@ function App() {
     const [foundArray, setFoundArray] = useState([12]);
     const [customThemes, setCustomThemes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [themeToDelete, setThemeToDelete] = useState('');
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -126,6 +128,8 @@ function App() {
         const selectedTheme = event.target.value;
         if (selectedTheme === "Create a new theme") {
             setIsModalOpen(true);
+        } else if (selectedTheme === "Delete a theme") {
+            setIsDeleteModalOpen(true);
         } else {
             setTheme(selectedTheme);
             setFinalArray([]); // Reset the board when the theme changes
@@ -155,10 +159,15 @@ function App() {
         setIsModalOpen(false);
     };
 
-    const deleteTheme = async (themeName) => {
-        const updatedThemes = customThemes.filter(theme => theme.themeName !== themeName);
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+    };
+
+    const handleDeleteTheme = async () => {
+        const updatedThemes = customThemes.filter(theme => theme.themeName !== themeToDelete);
         setCustomThemes(updatedThemes);
         // Add code to delete the theme from Google Sheets here
+        setIsDeleteModalOpen(false);
     };
 
     useEffect(() => {
@@ -231,10 +240,8 @@ function App() {
                             </option>
                         ))}
                         <option value="Create a new theme">Create a new theme</option>
+                        <option value="Delete a theme">Delete a theme</option>
                     </select>
-                    {customThemes.map((customTheme, index) => (
-                        <button key={index} onClick={() => deleteTheme(customTheme.themeName)}>x</button>
-                    ))}
                 </label>
             </div>
             <Modal
@@ -247,6 +254,31 @@ function App() {
             >
                 <ThemeCreator onSave={handleSaveTheme} />
                 <button onClick={closeModal}>Cancel</button>
+            </Modal>
+            <Modal
+                appElement={document.getElementById('root')}
+                isOpen={isDeleteModalOpen}
+                onRequestClose={closeDeleteModal}
+                contentLabel="Delete a Theme"
+                className="modal"
+                overlayClassName="overlay"
+            >
+                <div className="modal-content">
+                    <h2 className="modal-title">Delete a Theme</h2>
+                    <div className="modal-section">
+                        <label>Select Theme to Delete:</label>
+                        <select value={themeToDelete} onChange={(e) => setThemeToDelete(e.target.value)}>
+                            <option value="">Select a theme</option>
+                            {customThemes.map((customTheme, index) => (
+                                <option key={index} value={customTheme.themeName}>
+                                    {customTheme.themeName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <button className="modal-button" onClick={handleDeleteTheme}>Delete Theme</button>
+                    <button className="modal-button" onClick={closeDeleteModal}>Cancel</button>
+                </div>
             </Modal>
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
