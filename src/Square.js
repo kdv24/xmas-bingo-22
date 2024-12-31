@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from "react";
-
+import { resetBackground } from './App'; // P5f14
 
 const winningSets = [
   [0, 1, 2, 3, 4],
@@ -68,6 +68,8 @@ function checkForWin(found, itemKey, theme, foundArray) {
         default:
           break;
       }
+    } else {
+      resetBackground(); // P0655
     }
   })
 }
