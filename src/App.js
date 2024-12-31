@@ -71,6 +71,12 @@ function toTitleCase(str, theme) {
   return str;
 }
 
+function resetBackground() {
+  const appDiv = document.getElementsByClassName('App')[0];
+  appDiv.classList.remove('snow', 'national-park', 'clouds', 'eurovision-background', 'confetti');
+  appDiv.style.removeProperty('background-image');
+}
+
 function App() {
     const [isToggled, setIsToggled] = useState(false);
     const [theme, setTheme] = useState('Christmas');
@@ -130,8 +136,7 @@ function App() {
             setTheme(selectedTheme);
             setFinalArray([]); // Reset the board when the theme changes
             setFoundArray([12]); // Reset the foundArray when the theme changes
-            const appDiv = document.getElementsByClassName('App')[0];
-            appDiv.style.removeProperty('background-image'); // Reset the background color when switching to a non-custom theme
+            resetBackground(); // Reset the background when switching themes
         }
     };
 
