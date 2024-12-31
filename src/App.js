@@ -15,6 +15,7 @@ import {
 import Square from './Square';
 import ToggleButton from './ToggleButton';
 import ThemeCreator from './ThemeCreator';
+import DeleteThemeModal from './DeleteThemeModal';
 import './index.css';
 import './App.css';
 
@@ -255,31 +256,14 @@ function App() {
                 <ThemeCreator onSave={handleSaveTheme} />
                 <button onClick={closeModal}>Cancel</button>
             </Modal>
-            <Modal
-                appElement={document.getElementById('root')}
+            <DeleteThemeModal
                 isOpen={isDeleteModalOpen}
                 onRequestClose={closeDeleteModal}
-                contentLabel="Delete a Theme"
-                className="modal"
-                overlayClassName="overlay"
-            >
-                <div className="modal-content">
-                    <h2 className="modal-title">Delete a Theme</h2>
-                    <div className="modal-section">
-                        <label>Select Theme to Delete:</label>
-                        <select value={themeToDelete} onChange={(e) => setThemeToDelete(e.target.value)}>
-                            <option value="">Select a theme</option>
-                            {customThemes.map((customTheme, index) => (
-                                <option key={index} value={customTheme.themeName}>
-                                    {customTheme.themeName}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <button className="modal-button" onClick={handleDeleteTheme}>Delete Theme</button>
-                    <button className="modal-button" onClick={closeDeleteModal}>Cancel</button>
-                </div>
-            </Modal>
+                customThemes={customThemes}
+                themeToDelete={themeToDelete}
+                setThemeToDelete={setThemeToDelete}
+                handleDeleteTheme={handleDeleteTheme}
+            />
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
