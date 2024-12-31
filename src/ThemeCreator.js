@@ -30,27 +30,27 @@ const ThemeCreator = ({ onSave }) => {
     }
   };
 
-  const deleteFromGoogleSheet = async (themeName) => {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
-    const formData = new FormData();
-    formData.append('themeName', themeName);
+  // const deleteFromGoogleSheet = async (themeName) => {
+  //   const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
+  //   const formData = new FormData();
+  //   formData.append('themeName', themeName);
 
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'DELETE',
-        body: formData,
-      });
+  //   try {
+  //     const response = await fetch(scriptURL, {
+  //       method: 'DELETE',
+  //       body: formData,
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
 
-      const result = await response.json();
-      console.log('Success:', result);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  //     const result = await response.json();
+  //     console.log('Success:', result);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
 
   const handleSave = async () => {
     const newTheme = {
@@ -63,11 +63,11 @@ const ThemeCreator = ({ onSave }) => {
     await saveToGoogleSheet(newTheme);
   };
 
-  const deleteThemeFromLocalStorage = (themeName) => {
-    const storedThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
-    const updatedThemes = storedThemes.filter(theme => theme.themeName !== themeName);
-    localStorage.setItem('customThemes', JSON.stringify(updatedThemes));
-  };
+  // const deleteThemeFromLocalStorage = (themeName) => {
+  //   const storedThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
+  //   const updatedThemes = storedThemes.filter(theme => theme.themeName !== themeName);
+  //   localStorage.setItem('customThemes', JSON.stringify(updatedThemes));
+  // };
 
   useEffect(() => {
     const storedThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
