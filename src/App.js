@@ -169,6 +169,9 @@ function App() {
         setCustomThemes(updatedThemes);
         // Add code to delete the theme from Google Sheets here
         setIsDeleteModalOpen(false);
+        if (theme === themeToDelete) {
+            setTheme('Christmas');
+        }
     };
 
     useEffect(() => {
