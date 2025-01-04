@@ -5,6 +5,7 @@ const ThemeCreator = ({ onSave }) => {
   const [themeName, setThemeName] = useState('');
   const [wordArrays, setWordArrays] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
+  const [selectedSquaresColor, setSelectedSquaresColor] = useState(''); // Pb05b
 
   const saveToGoogleSheet = async (themeData) => {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
@@ -12,6 +13,7 @@ const ThemeCreator = ({ onSave }) => {
     formData.append('themeName', themeData.themeName);
     formData.append('wordArrays', themeData.wordArrays.join(', '));
     formData.append('backgroundColor', themeData.backgroundColor);
+    formData.append('selectedSquaresColor', themeData.selectedSquaresColor); // P1019
 
     try {
       const response = await fetch(scriptURL, {
@@ -34,7 +36,8 @@ const ThemeCreator = ({ onSave }) => {
     const newTheme = {
       themeName,
       wordArrays: wordArrays.split(',').map(word => word.trim()),
-      backgroundColor: backgroundColor
+      backgroundColor: backgroundColor,
+      selectedSquaresColor: selectedSquaresColor // P1019
     };
     await saveCustomTheme(newTheme, backgroundColor);
     await onSave(newTheme);
@@ -47,11 +50,12 @@ const ThemeCreator = ({ onSave }) => {
       const newTheme = {
         themeName,
         wordArrays: wordArrays.split(',').map(word => word.trim()),
-        backgroundColor: backgroundColor
+        backgroundColor: backgroundColor,
+        selectedSquaresColor: selectedSquaresColor // P1019
       };
       localStorage.setItem('customThemes', JSON.stringify([...storedThemes, newTheme]));
     }
-  }, [themeName, wordArrays, backgroundColor]);
+  }, [themeName, wordArrays, backgroundColor, selectedSquaresColor]);
 
   return (
     <div className="modal-content">
@@ -86,7 +90,7 @@ const ThemeCreator = ({ onSave }) => {
       <input
           type="text"
           value={selectedSquaresColor}
-          onChange={(e) => setBackgroundColor(e.target.value)}
+          onChange={(e) => setSelectedSquaresColor(e.target.value)}
         />
       </div>
       <button className="modal-button" onClick={handleSave}>Save Theme</button>
