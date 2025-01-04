@@ -154,6 +154,16 @@ function App() {
 
         setCustomThemes([...customThemes, newTheme]);
         setIsModalOpen(false);
+
+        // Apply the selected squares color to the Square-selected class
+        const styleElement = document.createElement('style');
+        styleElement.id = "selected-squares-color-style";
+        styleElement.innerHTML = `
+            .Square-selected {
+                background-color: ${newTheme.selectedSquaresColor} !important;
+            }
+        `;
+        document.head.appendChild(styleElement);
     };
 
     const closeModal = () => {
