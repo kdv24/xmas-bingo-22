@@ -81,6 +81,14 @@ const ThemeCreator = ({ onSave }) => {
           onChange={(e) => setBackgroundColor(e.target.value)}
         />
       </div>
+      <div className="modal-section selected-squares-color">
+      <label>Color for selected squares, by name or&nbsp; <a href="https://htmlcolorcodes.com/">#hexcode</a>:</label>
+      <input
+          type="text"
+          value={selectedSquaresColor}
+          onChange={(e) => setBackgroundColor(e.target.value)}
+        />
+      </div>
       <button className="modal-button" onClick={handleSave}>Save Theme</button>
     </div>
   );
