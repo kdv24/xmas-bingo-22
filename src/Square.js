@@ -74,10 +74,15 @@ function checkForWin(found, itemKey, theme, foundArray) {
 
 function Square(props) {
   const [found, setFound] = useToggle(false);
+  const customThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
+  const customTheme = customThemes.find(t => t.themeName === props.theme);
+  const selectedSquaresColor = customTheme ? customTheme.selectedSquaresColor : null;
+
   return (
     <div 
       id={`bingo-square-${props.item}`}
       className={(found === true || props.item === "Free Space") ? `Square-selected ${props.className}` : `Square ${props.className}` }
+      style={selectedSquaresColor ? { backgroundColor: selectedSquaresColor } : {}}
       onClick={() => {
         setFound(!found);
         checkForWin(!found, props.itemKey, props.theme, props.foundArray);
