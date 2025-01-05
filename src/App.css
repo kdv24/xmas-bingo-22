@@ -65,15 +65,15 @@ body {
 }
 
 .Square-selected {
-  background-image: linear-gradient(#146B38, #146B38);
+  background-image: linear-gradient(var(--selected-squares-color), var(--selected-squares-color));
   font-weight: 200;
-  color: #146B38;
+  color: var(--selected-squares-color);
 }
 
 .free-space {
-  background-image: linear-gradient(#146B38, #146B38);
+  background-image: linear-gradient(var(--selected-squares-color), var(--selected-squares-color));
   font-weight: 200;
-  color: #146B38;
+  color: var(--selected-squares-color);
 }
 
 /* Christmas Styles */
@@ -431,4 +431,9 @@ input:checked + .slider::before {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+
+/* New CSS class for selected squares color */
+.selected-squares-color {
+  background-color: var(--selected-squares-color);
 }
