@@ -327,6 +327,9 @@ export async function saveCustomTheme(theme, backgroundColor) {
   let customThemeBackgrounds = JSON.parse(localStorage.getItem('customThemeBackgrounds')) || {};
   customThemeBackgrounds[theme.themeName] = backgroundColor;
   localStorage.setItem('customThemeBackgrounds', JSON.stringify(customThemeBackgrounds));
+  let customThemeColors = JSON.parse(localStorage.getItem('customThemeColors')) || {};
+  customThemeColors[theme.themeName] = theme.selectedSquareColor;
+  localStorage.setItem('customThemeColors', JSON.stringify(customThemeColors));
 }
 
 export async function loadCustomTheme(themeName) {
