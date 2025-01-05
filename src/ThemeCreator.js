@@ -5,6 +5,7 @@ const ThemeCreator = ({ onSave }) => {
   const [themeName, setThemeName] = useState('');
   const [wordArrays, setWordArrays] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
+  const [selectedSquareColor, setSelectedSquareColor] = useState('');
 
   const saveToGoogleSheet = async (themeData) => {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxb2QVElxoPiELzifG-Qt-pSNjN8pJPulJv6ADf19AZLZ2IZrs_6DR6MYhxmtUQ-AYU/exec';
@@ -12,6 +13,7 @@ const ThemeCreator = ({ onSave }) => {
     formData.append('themeName', themeData.themeName);
     formData.append('wordArrays', themeData.wordArrays.join(', '));
     formData.append('backgroundColor', themeData.backgroundColor);
+    formData.append('selectedSquareColor', themeData.selectedSquareColor);
 
     try {
       const response = await fetch(scriptURL, {
@@ -34,7 +36,8 @@ const ThemeCreator = ({ onSave }) => {
     const newTheme = {
       themeName,
       wordArrays: wordArrays.split(',').map(word => word.trim()),
-      backgroundColor: backgroundColor
+      backgroundColor: backgroundColor,
+      selectedSquareColor: selectedSquareColor
     };
     await saveCustomTheme(newTheme, backgroundColor);
     await onSave(newTheme);
@@ -47,11 +50,12 @@ const ThemeCreator = ({ onSave }) => {
       const newTheme = {
         themeName,
         wordArrays: wordArrays.split(',').map(word => word.trim()),
-        backgroundColor: backgroundColor
+        backgroundColor: backgroundColor,
+        selectedSquareColor: selectedSquareColor
       };
       localStorage.setItem('customThemes', JSON.stringify([...storedThemes, newTheme]));
     }
-  }, [themeName, wordArrays, backgroundColor]);
+  }, [themeName, wordArrays, backgroundColor, selectedSquareColor]);
 
   return (
     <div className="modal-content">
@@ -79,6 +83,14 @@ const ThemeCreator = ({ onSave }) => {
           type="text"
           value={backgroundColor}
           onChange={(e) => setBackgroundColor(e.target.value)}
+        />
+      </div>
+      <div className="modal-section selected-square-color">
+        <label>Selected square color by name or&nbsp; <a href="https://htmlcolorcodes.com/">#hexcode</a>:</label>
+        <input
+          type="text"
+          value={selectedSquareColor}
+          onChange={(e) => setSelectedSquareColor(e.target.value)}
         />
       </div>
       <button className="modal-button" onClick={handleSave}>Save Theme</button>

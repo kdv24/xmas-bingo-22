@@ -137,6 +137,21 @@ function App() {
             setFoundArray([12]); // Reset the foundArray when the theme changes
             const appDiv = document.getElementsByClassName('App')[0];
             appDiv.style.removeProperty('background-image'); // Reset the background color when switching to a non-custom theme
+            if (selectedTheme !== 'Christmas' && selectedTheme !== 'Road Trip' && selectedTheme !== 'Plane Travel' && selectedTheme !== 'Eurovision') {
+              let customThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
+              let customTheme = customThemes.find(t => t.themeName === selectedTheme);
+              let selectedSquareColor = customTheme ? customTheme.selectedSquareColor : null;
+              if (selectedSquareColor) {
+                const styleElement = document.createElement('style');
+                styleElement.id = "dynamic-style";
+                styleElement.innerHTML = `
+                  .Square-selected {
+                    background-color: ${selectedSquareColor} !important;
+                  }
+                `;
+                document.head.appendChild(styleElement);
+              }
+            }
         }
     };
 
@@ -244,6 +259,7 @@ function App() {
           let customThemes = JSON.parse(localStorage.getItem('customThemes')) || [];
           let customTheme = customThemes.find(t => t.themeName === theme);
           let backgroundColor = customTheme ? customTheme.backgroundColor : null;
+          let selectedSquareColor = customTheme ? customTheme.selectedSquareColor : null;
           
           // Check if backgroundColor is not null or undefined
           if (backgroundColor) {
@@ -252,6 +268,18 @@ function App() {
           } else {
             // Setting a default color
             appDiv.style.setProperty('background-image', 'linear-gradient(purple, purple, purple)');
+          }
+
+          // Check if selectedSquareColor is not null or undefined
+          if (selectedSquareColor) {
+            const styleElement = document.createElement('style');
+            styleElement.id = "dynamic-style";
+            styleElement.innerHTML = `
+              .Square-selected {
+                background-color: ${selectedSquareColor} !important;
+              }
+            `;
+            document.head.appendChild(styleElement);
           }          
           break;
       }
