@@ -96,7 +96,7 @@ function App() {
       } else {
           styleElement.innerHTML = `
               .Square-selected {
-                  color: #146B38 !important;
+                  color: black !important;
               }
           `;
       }

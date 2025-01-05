@@ -65,15 +65,15 @@ body {
 }
 
 .Square-selected {
-  background-image: linear-gradient(#146B38, #146B38);
+  background-image: linear-gradient(black, black);
   font-weight: 200;
-  color: #146B38;
+  color: black;
 }
 
 .free-space {
-  background-image: linear-gradient(#146B38, #146B38);
+  background-image: linear-gradient(black, black);
   font-weight: 200;
-  color: #146B38;
+  color: black;
 }
 
 /* Christmas Styles */
@@ -250,7 +250,7 @@ body {
 
 /* Change background color when checked */
 input:checked + .slider {
-  background-color: #146B38; /* Active color */
+  background-color: black; /* Active color */
 }
 
 /* Move the pill when checked */
@@ -297,7 +297,7 @@ input:checked + .slider::before {
   position: inherit;
   right: 20px;
   pointer-events: none;
-  color: #146B38;
+  color: black;
 }
 
 /* Media Queries */
