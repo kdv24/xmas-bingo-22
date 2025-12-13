@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+To run the project locally, run:
+
+### `npm run start --prefix /Users/kdv/Projects/GratefulProject/xmas-bingo-22`
+
 In the project directory, you can run:
 
 ### `npm start`
@@ -68,3 +72,24 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Google Apps Script backend (optional)
+
+This project can optionally use a Google Apps Script + Google Sheets backend to store and share Bingo themes. The frontend calls two endpoints on the deployed web app:
+
+- GET ?action=list  -> returns JSON { themes: [...] }
+- POST (FormData) with action=delete and themeName -> deletes matching rows
+
+If you want to enable server-backed deletes, follow these steps:
+
+1. Open Google Apps Script (https://script.google.com/) and create a new project.
+2. Replace the default Code.gs with the script provided in the repo (or use your own). Set the `SPREADSHEET_ID` constant in the script to the ID of your spreadsheet and ensure there's a sheet named `themes`.
+3. Deploy the script as a Web App: Publish > Deploy as web app (or Deploy > New deployment). Important: set "Execute as" to your account (Me) and set "Who has access" to "Anyone, even anonymous" if you want anonymous clients to be able to call it from the browser.
+4. Copy the Web App URL and paste it into `src/BingoArray.js` as the `SCRIPT_URL` constant.
+5. (Optional) To protect deletes, set `DELETE_SECRET` in the Apps Script and paste the same value into `src/BingoArray.js` `DELETE_SECRET` export. When set, the client will include the secret in delete requests.
+
+Notes:
+- When deploying, Google tends to issue a new URL for each deployment. Make sure the URL in `src/BingoArray.js` matches the latest deployment you want to use.
+- For development you can leave `DELETE_SECRET` empty; deletes will not require a secret in that case.
+- If you see 302->405 when testing with curl, try testing from the browser first; Google deployment redirect behavior can differ for CLI requests.
+

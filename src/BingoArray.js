@@ -342,3 +342,52 @@ export function loadThemesFromLocalStorage() {
 export function saveThemesToLocalStorage(themes) {
   localStorage.setItem('customThemes', JSON.stringify(themes));
 }
+
+// Server integration: list and delete themes via Google Apps Script
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSwJbfmvSMHswlN6JMbmVJTQfJCzBBPas2QAVLN6Qq_W5lC-BiFT_P1HP8rTlyyb8/exec';
+// If you set a DELETE_SECRET in the Apps Script, put the same value here.
+// Leave empty to disable secret protection on client-side.
+export const DELETE_SECRET = '';
+
+export async function loadThemesFromServer() {
+  const maxTries = 2;
+  let lastErr;
+  for (let attempt = 1; attempt <= maxTries; attempt++) {
+    try {
+      const res = await fetch(SCRIPT_URL + '?action=list');
+      if (!res.ok) throw new Error(`Network response not ok (${res.status})`);
+      const data = await res.json();
+      return data.themes || [];
+    } catch (err) {
+      lastErr = err;
+      console.warn(`loadThemesFromServer attempt ${attempt} failed:`, err);
+      // small backoff
+      await new Promise(r => setTimeout(r, 150 * attempt));
+    }
+  }
+  console.error('Failed to load themes from server after retries', lastErr);
+  throw lastErr;
+}
+
+export async function deleteThemeFromServer(themeName) {
+  const maxTries = 2;
+  let lastErr;
+  for (let attempt = 1; attempt <= maxTries; attempt++) {
+    try {
+      const form = new FormData();
+      form.append('action', 'delete');
+      form.append('themeName', themeName);
+      if (DELETE_SECRET) form.append('secret', DELETE_SECRET);
+      const res = await fetch(SCRIPT_URL, { method: 'POST', body: form });
+      if (!res.ok) throw new Error(`Network response not ok (${res.status})`);
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      lastErr = err;
+      console.warn(`deleteThemeFromServer attempt ${attempt} failed:`, err);
+      await new Promise(r => setTimeout(r, 150 * attempt));
+    }
+  }
+  console.error('Failed to delete theme from server after retries', lastErr);
+  throw lastErr;
+}

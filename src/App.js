@@ -11,6 +11,7 @@ import {
   eurovisionStyleMap,
   getWordsForTheme,
   shuffle
+  , loadThemesFromServer, deleteThemeFromServer
 } from './BingoArray';
 import Square from './Square';
 import ToggleButton from './ToggleButton';
@@ -199,19 +200,18 @@ function App() {
       localStorage.setItem('customThemes', JSON.stringify(updatedThemes));
     };
 
-    const handleDeleteTheme = async () => {
-        const updatedThemes = customThemes.filter(theme => theme.themeName !== themeToDelete);
-        setCustomThemes(updatedThemes);
-        // Code to delete the theme from Google Sheets 
-        // deleteFromGoogleSheet(themeToDelete);
-        deleteThemeFromLocalStorage(themeToDelete);
-        setIsDeleteModalOpen(false);
-        if (theme === themeToDelete) {
-            setTheme('Christmas');
-            const appDiv = document.getElementsByClassName('App')[0];
-            appDiv.style.removeProperty('background-image');
-        }
-    };
+  const handleDeleteTheme = async (themeNameParam) => {
+    const nameToDelete = themeNameParam || themeToDelete;
+    const updatedThemes = customThemes.filter(theme => theme.themeName !== nameToDelete);
+    setCustomThemes(updatedThemes);
+    deleteThemeFromLocalStorage(nameToDelete);
+    setIsDeleteModalOpen(false);
+    if (theme === nameToDelete) {
+      setTheme('Christmas');
+      const appDiv = document.getElementsByClassName('App')[0];
+      appDiv.style.removeProperty('background-image');
+    }
+  };
 
     useEffect(() => {
       const appDiv = document.getElementsByClassName('App')[0];
@@ -298,14 +298,16 @@ function App() {
                 <ThemeCreator onSave={handleSaveTheme} />
                 <button onClick={closeModal}>Cancel</button>
             </Modal>
-            <DeleteThemeModal
-                isOpen={isDeleteModalOpen}
-                onRequestClose={closeDeleteModal}
-                customThemes={customThemes}
-                themeToDelete={themeToDelete}
-                setThemeToDelete={setThemeToDelete}
-                handleDeleteTheme={handleDeleteTheme}
-            />
+      <DeleteThemeModal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={closeDeleteModal}
+        customThemes={customThemes}
+        themeToDelete={themeToDelete}
+        setThemeToDelete={setThemeToDelete}
+        handleDeleteTheme={() => handleDeleteTheme(themeToDelete)}
+        loadThemesFromServer={loadThemesFromServer}
+        deleteThemeFromServer={deleteThemeFromServer}
+      />
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
