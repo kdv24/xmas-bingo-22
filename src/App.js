@@ -141,7 +141,7 @@ function App() {
 
   const handleThemeChange = (event) => {
     const selectedTheme = event.target.value;
-    if (selectedTheme === "Delete a theme") {
+    if (selectedTheme === "Manage themes") {
       setIsDeleteModalOpen(true);
     } else {
       setTheme(selectedTheme);
@@ -326,7 +326,7 @@ function App() {
                               {c.themeName}
                             </option>
                           ))}
-                        <option value="Delete a theme">Delete a theme</option>
+                        <option value="Manage themes">Manage themes</option>
                     </select>
                 </label>
             </div>
