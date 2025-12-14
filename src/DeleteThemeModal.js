@@ -8,6 +8,7 @@ const DeleteThemeModal = ({
   isOpen,
   onRequestClose,
   customThemes,
+  serverThemes: initialServerThemes = [],
   themeToDelete,
   setThemeToDelete,
   handleDeleteTheme,
@@ -16,7 +17,7 @@ const DeleteThemeModal = ({
   restoreTheme,
 }) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [serverThemes, setServerThemes] = useState([]);
+  const [serverThemes, setServerThemes] = useState(initialServerThemes);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState([]);
   const [manageOpen, setManageOpen] = useState(false);
@@ -24,8 +25,10 @@ const DeleteThemeModal = ({
 
   useEffect(() => {
     if (isOpen) {
+      setServerThemes(initialServerThemes);
+      // Only show spinner if both lists are empty
+      setLoading((initialServerThemes.length === 0) && (customThemes.length === 0));
       (async () => {
-        setLoading(true);
         try {
           const list = await loadThemesFromServer();
           setServerThemes(list);
@@ -37,7 +40,7 @@ const DeleteThemeModal = ({
         setLoading(false);
       })();
     }
-  }, [isOpen, loadThemesFromServer]);
+  }, [isOpen, loadThemesFromServer, initialServerThemes, customThemes.length]);
 
   return (
     <Modal
@@ -90,7 +93,15 @@ const DeleteThemeModal = ({
                 serverThemes.forEach(s => namesMap.set(s.themeName, { source: 'server', item: s }));
                 customThemes.forEach(c => namesMap.set(c.themeName, { source: 'local', item: c }));
                 const all = Array.from(namesMap.values()).map(v => v.item);
-                if (all.length === 0) return <div style={{ color: '#666' }}>No themes available.</div>;
+                if (loading && all.length === 0) {
+                  return (
+                    <div style={{ color: '#888', fontSize: 15, textAlign: 'center', marginTop: 40 }}>
+                      <span className="spinner" style={{ marginRight: 8, display: 'inline-block', width: 16, height: 16, border: '2px solid #ccc', borderTop: '2px solid #38bdf8', borderRadius: '50%', animation: 'spin 1s linear infinite', verticalAlign: 'middle' }}></span>
+                      Loading themes...
+                    </div>
+                  );
+                }
+                if (all.length === 0) return <div style={{ color: '#666', textAlign: 'center', marginTop: 40 }}>No themes available.</div>;
                 return all.map((t, i) => {
                   const checked = selected.includes(t.themeName);
                   return (

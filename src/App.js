@@ -75,7 +75,7 @@ function toTitleCase(str, theme) {
 
 function App() {
   const [isToggled, setIsToggled] = useState(false);
-  const [theme, setTheme] = useState('Christmas');
+  const [theme, setTheme] = useState('Christmas'); // Default to a real theme, not 'Manage themes'
   const [finalArray, setFinalArray] = useState([]);
   const [foundArray, setFoundArray] = useState([12]);
   const [customThemes, setCustomThemes] = useState([]);
@@ -83,15 +83,18 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [themeToDelete, setThemeToDelete] = useState('');
+  const [themesLoading, setThemesLoading] = useState(false);
     // Fetch server themes on mount
     useEffect(() => {
       async function fetchThemes() {
+        setThemesLoading(true);
         try {
           const themes = await loadThemesFromServer();
           setServerThemes(themes);
         } catch (e) {
           setServerThemes([]);
         }
+        setThemesLoading(false);
       }
       fetchThemes();
     }, []);
@@ -304,14 +307,26 @@ function App() {
             <div className="theme-dropdown-container">
                 <label>
                     Select Theme:
-                    <select value={theme} onChange={handleThemeChange}>
+                    <select
+                      value={theme}
+                      onChange={handleThemeChange}
+                      disabled={themesLoading}
+                      style={themesLoading ? { color: '#aaa', background: '#f3f4f6', cursor: 'not-allowed' } : {}}
+                    >
+                        {/* Manage Themes at the top, visually distinct but valid */}
+                        <option value="Manage themes">Manage Themes</option>
+                        <option disabled>──────────────</option>
                         {/* Built-in themes */}
                         <option value="Christmas">Christmas</option>
                         <option value="Road Trip">Road Trip</option>
                         <option value="Plane Travel">Plane Travel</option>
                         <option value="Eurovision">Eurovision</option>
+                        {/* Loading state */}
+                        {themesLoading && (
+                          <option value="loading" disabled>Loading themes...</option>
+                        )}
                         {/* Server themes (excluding built-ins) */}
-                        {serverThemes
+                        {!themesLoading && serverThemes && serverThemes.length > 0 && serverThemes
                           .filter(
                             s =>
                               !["Christmas", "Road Trip", "Plane Travel", "Eurovision"].includes(
@@ -323,8 +338,12 @@ function App() {
                               {s.themeName}
                             </option>
                           ))}
+                        {/* No server themes found */}
+                        {!themesLoading && (!serverThemes || serverThemes.length === 0) && (
+                          <option disabled value="no-themes">No server themes found</option>
+                        )}
                         {/* Local custom themes (excluding built-ins and server themes) */}
-                        {customThemes
+                        {!themesLoading && customThemes
                           .filter(
                             c =>
                               !["Christmas", "Road Trip", "Plane Travel", "Eurovision"].includes(
@@ -337,10 +356,10 @@ function App() {
                               {c.themeName}
                             </option>
                           ))}
-                        <option value="Manage themes">Manage themes</option>
                     </select>
                 </label>
             </div>
+
             <Modal
                 appElement={document.getElementById('root')}
                 isOpen={isModalOpen}
@@ -356,6 +375,7 @@ function App() {
         isOpen={isDeleteModalOpen}
         onRequestClose={closeDeleteModal}
         customThemes={customThemes}
+        serverThemes={serverThemes}
         themeToDelete={themeToDelete}
         setThemeToDelete={setThemeToDelete}
         handleDeleteTheme={handleDeleteTheme}
