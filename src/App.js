@@ -127,13 +127,24 @@ function App() {
 
     useEffect(() => {
       const loadWords = async () => {
-        const words = await getWordsForTheme(theme);
+        let words = [];
+        // Check if theme is a server theme
+        const serverThemeObj = serverThemes.find(t => t.themeName === theme);
+        if (serverThemeObj) {
+          if (Array.isArray(serverThemeObj.wordArrays)) {
+            words = serverThemeObj.wordArrays;
+          } else if (serverThemeObj.wordArrays && typeof serverThemeObj.wordArrays === 'object') {
+            words = Object.values(serverThemeObj.wordArrays).flat();
+          }
+        } else {
+          words = await getWordsForTheme(theme);
+        }
         const shuffledWords = shuffle(words);
         shuffledWords[12] = 'Free Space'; // Ensure "Free Space" is always in the center
         setFinalArray(shuffledWords.slice(0, 25));
       };
       loadWords();
-    }, [theme]);
+    }, [theme, serverThemes]);
 
     const handleToggleChange = (newToggleState) => {
         setIsToggled(newToggleState);

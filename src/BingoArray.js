@@ -302,7 +302,12 @@ export async function getWordsForTheme(theme) {
       }
       break;
   } 
-  const allWords = Object.values(wordArrays).flat();
+  let allWords = [];
+  if (Array.isArray(wordArrays)) {
+    allWords = wordArrays;
+  } else if (wordArrays && typeof wordArrays === 'object') {
+    allWords = Object.values(wordArrays).flat();
+  }
   return allWords;
 }
 
@@ -344,7 +349,7 @@ export function saveThemesToLocalStorage(themes) {
 }
 
 // Server integration: list and delete themes via Google Apps Script
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjPWBmWtLE_cnHCeNRW7m3cHyg4_9oSQVDTzGprxMhNSR4OqAmMPFFvK-nCf6aCZby/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyf6NXXCszp8utjjWkR46kCtT6UrvIODuUKA-37bPrf1SKe3HjQJ4ps8i5XZI7Rxuh4/exec';
 // If you set a DELETE_SECRET in the Apps Script, put the same value here.
 // Leave empty to disable secret protection on client-side.
 export const DELETE_SECRET = '';
