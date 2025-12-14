@@ -74,14 +74,27 @@ function toTitleCase(str, theme) {
 }
 
 function App() {
-    const [isToggled, setIsToggled] = useState(false);
-    const [theme, setTheme] = useState('Christmas');
-    const [finalArray, setFinalArray] = useState([]);
-    const [foundArray, setFoundArray] = useState([12]);
-    const [customThemes, setCustomThemes] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [themeToDelete, setThemeToDelete] = useState('');
+  const [isToggled, setIsToggled] = useState(false);
+  const [theme, setTheme] = useState('Christmas');
+  const [finalArray, setFinalArray] = useState([]);
+  const [foundArray, setFoundArray] = useState([12]);
+  const [customThemes, setCustomThemes] = useState([]);
+  const [serverThemes, setServerThemes] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [themeToDelete, setThemeToDelete] = useState('');
+    // Fetch server themes on mount
+    useEffect(() => {
+      async function fetchThemes() {
+        try {
+          const themes = await loadThemesFromServer();
+          setServerThemes(themes);
+        } catch (e) {
+          setServerThemes([]);
+        }
+      }
+      fetchThemes();
+    }, []);
 
     // Update the Square-selected class when isToggled changes
     useEffect(() => {
@@ -126,20 +139,18 @@ function App() {
         setIsToggled(newToggleState);
     };
 
-    const handleThemeChange = (event) => {
-        const selectedTheme = event.target.value;
-        if (selectedTheme === "Create a new theme") {
-            setIsModalOpen(true);
-        } else if (selectedTheme === "Delete a theme") {
-            setIsDeleteModalOpen(true);
-        } else {
-            setTheme(selectedTheme);
-            setFinalArray([]); // Reset the board when the theme changes
-            setFoundArray([12]); // Reset the foundArray when the theme changes
-            const appDiv = document.getElementsByClassName('App')[0];
-            appDiv.style.removeProperty('background-image'); // Reset the background color when switching to a non-custom theme
-        }
-    };
+  const handleThemeChange = (event) => {
+    const selectedTheme = event.target.value;
+    if (selectedTheme === "Delete a theme") {
+      setIsDeleteModalOpen(true);
+    } else {
+      setTheme(selectedTheme);
+      setFinalArray([]); // Reset the board when the theme changes
+      setFoundArray([12]); // Reset the foundArray when the theme changes
+      const appDiv = document.getElementsByClassName('App')[0];
+      appDiv.style.removeProperty('background-image'); // Reset the background color when switching to a non-custom theme
+    }
+  };
 
     const handleSaveTheme = async (newTheme) => {
         const defaultColors = ['red', 'green', 'blue', 'yellow'];
@@ -283,16 +294,38 @@ function App() {
                 <label>
                     Select Theme:
                     <select value={theme} onChange={handleThemeChange}>
+                        {/* Built-in themes */}
                         <option value="Christmas">Christmas</option>
                         <option value="Road Trip">Road Trip</option>
                         <option value="Plane Travel">Plane Travel</option>
                         <option value="Eurovision">Eurovision</option>
-                        {customThemes.map((customTheme, index) => (
-                            <option key={index} value={customTheme.themeName}>
-                                {customTheme.themeName}
+                        {/* Server themes (excluding built-ins) */}
+                        {serverThemes
+                          .filter(
+                            s =>
+                              !["Christmas", "Road Trip", "Plane Travel", "Eurovision"].includes(
+                                s.themeName
+                              )
+                          )
+                          .map((s, idx) => (
+                            <option key={`server-${idx}`} value={s.themeName}>
+                              {s.themeName}
                             </option>
-                        ))}
-                        <option value="Create a new theme">Create a new theme</option>
+                          ))}
+                        {/* Local custom themes (excluding built-ins and server themes) */}
+                        {customThemes
+                          .filter(
+                            c =>
+                              !["Christmas", "Road Trip", "Plane Travel", "Eurovision"].includes(
+                                c.themeName
+                              ) &&
+                              !serverThemes.some(s => s.themeName === c.themeName)
+                          )
+                          .map((c, idx) => (
+                            <option key={`custom-${idx}`} value={c.themeName}>
+                              {c.themeName}
+                            </option>
+                          ))}
                         <option value="Delete a theme">Delete a theme</option>
                     </select>
                 </label>

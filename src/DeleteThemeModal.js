@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { showToast } from './toast';
-// pushUndo previously used for single-item undo; not used in multi-delete view
 import ManageThemesModal from './ManageThemesModal';
+import ThemeCreator from './ThemeCreator';
 
 const DeleteThemeModal = ({ isOpen, onRequestClose, customThemes, themeToDelete, setThemeToDelete, handleDeleteTheme, loadThemesFromServer, deleteThemeFromServer, restoreTheme }) => {
+  const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
   const [serverThemes, setServerThemes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState([]);
@@ -48,6 +49,19 @@ const DeleteThemeModal = ({ isOpen, onRequestClose, customThemes, themeToDelete,
               <div style={{ fontSize: 13, color: '#333', fontWeight: 700 }}>Themes ({(new Set([...serverThemes.map(s => s.themeName), ...customThemes.map(c => c.themeName)])).size})</div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button className="modal-button" onClick={() => { setManageOpen(true); }} style={{ background: '#3b82f6', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 6 }}>Manage themes</button>
+                <button className="modal-button" onClick={() => setIsCreateModalOpen(true)} style={{ background: '#10b981', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: 6 }}>Create new theme</button>
+      {/* Create Theme Modal */}
+      <Modal
+        appElement={document.getElementById('root')}
+        isOpen={isCreateModalOpen}
+        onRequestClose={() => setIsCreateModalOpen(false)}
+        contentLabel="Create a New Theme"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <ThemeCreator onSave={(newTheme) => { setIsCreateModalOpen(false); if (typeof restoreTheme === 'function') restoreTheme(newTheme); }} />
+        <button onClick={() => setIsCreateModalOpen(false)}>Cancel</button>
+      </Modal>
                 <button className="modal-button" onClick={() => { setSelected([]); setThemeToDelete(''); }} style={{ background: '#e6e6e6', border: 'none', padding: '6px 10px', borderRadius: 6 }}>Clear</button>
               </div>
             </div>
