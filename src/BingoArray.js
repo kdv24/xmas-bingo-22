@@ -344,7 +344,7 @@ export function saveThemesToLocalStorage(themes) {
 }
 
 // Server integration: list and delete themes via Google Apps Script
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwlNT574IZavz3b_omAgT0XWC2K7iSKFJKn51Fp0u7JvOmQgCT8HZBz9oEynSlOmIC2/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjPWBmWtLE_cnHCeNRW7m3cHyg4_9oSQVDTzGprxMhNSR4OqAmMPFFvK-nCf6aCZby/exec';
 // If you set a DELETE_SECRET in the Apps Script, put the same value here.
 // Leave empty to disable secret protection on client-side.
 export const DELETE_SECRET = '';

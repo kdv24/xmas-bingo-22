@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { 
   christmasStyleMap,
@@ -17,7 +17,6 @@ import Square from './Square';
 import ToggleButton from './ToggleButton';
 import ThemeCreator from './ThemeCreator';
 import DeleteThemeModal from './DeleteThemeModal';
-import ManageThemesModal from './ManageThemesModal';
 import './index.css';
 import './App.css';
 
@@ -81,8 +80,7 @@ function App() {
     const [foundArray, setFoundArray] = useState([12]);
     const [customThemes, setCustomThemes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isManageOpen, setIsManageOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [themeToDelete, setThemeToDelete] = useState('');
 
     // Update the Square-selected class when isToggled changes
@@ -130,12 +128,10 @@ function App() {
 
     const handleThemeChange = (event) => {
         const selectedTheme = event.target.value;
-    if (selectedTheme === "Create a new theme") {
-      setIsModalOpen(true);
-    } else if (selectedTheme === "Delete a theme") {
-      setIsDeleteModalOpen(true);
-    } else if (selectedTheme === "Manage themes") {
-      setIsManageOpen(true);
+        if (selectedTheme === "Create a new theme") {
+            setIsModalOpen(true);
+        } else if (selectedTheme === "Delete a theme") {
+            setIsDeleteModalOpen(true);
         } else {
             setTheme(selectedTheme);
             setFinalArray([]); // Reset the board when the theme changes
@@ -297,7 +293,7 @@ function App() {
                             </option>
                         ))}
                         <option value="Create a new theme">Create a new theme</option>
-                        <option value="Manage themes">Manage themes</option>
+                        <option value="Delete a theme">Delete a theme</option>
                     </select>
                 </label>
             </div>
@@ -323,24 +319,6 @@ function App() {
         loadThemesFromServer={loadThemesFromServer}
         deleteThemeFromServer={deleteThemeFromServer}
       />
-      <ManageThemesModal isOpen={isManageOpen} onRequestClose={() => setIsManageOpen(false)} customThemes={customThemes} editTheme={null} onSave={(updated) => {
-        // onSave may include {deleted: true} or full theme
-        if (updated && updated.deleted) {
-          const next = customThemes.filter(t => t.themeName !== updated.themeName);
-          setCustomThemes(next);
-          localStorage.setItem('customThemes', JSON.stringify(next));
-          return;
-        }
-        if (updated && updated.themeName) {
-          // upsert locally
-          setCustomThemes(prev => {
-            const filtered = prev.filter(t => t.themeName !== updated.themeName);
-            const next = [...filtered, updated];
-            localStorage.setItem('customThemes', JSON.stringify(next));
-            return next;
-          });
-        }
-      }} />
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
                   let passedClass = checkForBackgroundStyle(item, theme);
