@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { showToast } from './toast';
 import ManageThemesModal from './ManageThemesModal';
+import { editThemeOnServer } from './BingoArray';
 import ThemeCreator from './ThemeCreator';
 
 const DeleteThemeModal = ({
@@ -206,12 +207,23 @@ const DeleteThemeModal = ({
           onRequestClose={() => { setManageOpen(false); setEditingTheme(null); }}
           customThemes={customThemes}
           editTheme={editingTheme}
-          onSave={(updated) => {
+          onSave={async (updated) => {
             // update local themes when editing
             const stored = JSON.parse(localStorage.getItem('customThemes')) || [];
             const next = stored.filter(t => t.themeName !== updated.themeName).concat(updated);
             localStorage.setItem('customThemes', JSON.stringify(next));
-            showToast('Theme saved locally', 'success');
+            // Save to server
+            try {
+              await editThemeOnServer(updated);
+              showToast('Theme updated in Google Sheet', 'success');
+            } catch (e) {
+              showToast('Failed to update theme in Google Sheet', 'error');
+            }
+            // Refresh server themes
+            try {
+              const list = await loadThemesFromServer();
+              setServerThemes(list);
+            } catch (e) {}
             setManageOpen(false);
           }}
         />

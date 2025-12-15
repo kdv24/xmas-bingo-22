@@ -1,3 +1,18 @@
+// Edit theme on server
+export async function editThemeOnServer(theme) {
+  const form = new FormData();
+  form.append('action', 'edit');
+  form.append('themeName', theme.themeName);
+  form.append('themeData', JSON.stringify([
+    theme.themeName,
+    theme.backgroundColor || '',
+    JSON.stringify(theme.wordArrays || {})
+    // Add more fields as needed to match your sheet structure
+  ]));
+  const res = await fetch(SCRIPT_URL, { method: 'POST', body: form });
+  const data = await res.json();
+  return data;
+}
 const lightsWords = [
   'Reindeer lights',
   'Snowman lights',
@@ -349,7 +364,7 @@ export function saveThemesToLocalStorage(themes) {
 }
 
 // Server integration: list and delete themes via Google Apps Script
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyf6NXXCszp8utjjWkR46kCtT6UrvIODuUKA-37bPrf1SKe3HjQJ4ps8i5XZI7Rxuh4/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8mzvqUftt6IS0nRP7Spt7E1dzLdEOgTAwo8s-xuyxlqCmrOLP1_ht3zg7VFnPD171/exec';
 // If you set a DELETE_SECRET in the Apps Script, put the same value here.
 // Leave empty to disable secret protection on client-side.
 export const DELETE_SECRET = '';
