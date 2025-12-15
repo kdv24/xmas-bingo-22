@@ -3,9 +3,21 @@ import Modal from 'react-modal';
 
 // Minimal manage modal: edits a theme object shape { themeName, backgroundColor, wordArrays }
 export default function ManageThemesModal({ isOpen, onRequestClose, customThemes = [], editTheme = null, onSave }) {
-  const [themeObj, setThemeObj] = useState(editTheme || { createdAt: '', themeName: '', backgroundColor: '', wordArrays: {} });
+  const [themeObj, setThemeObj] = useState(() => {
+    if (!editTheme) return { createdAt: '', themeName: '', backgroundColor: '', wordArrays: [] };
+    // Always convert wordArrays to array if string
+    let wa = editTheme.wordArrays;
+    if (typeof wa === 'string') wa = wa.split(',').map(s => s.trim()).filter(Boolean);
+    return { ...editTheme, wordArrays: wa };
+  });
   useEffect(() => {
-    setThemeObj(editTheme || { themeName: '', backgroundColor: '', wordArrays: {} });
+    if (!editTheme) {
+      setThemeObj({ themeName: '', backgroundColor: '', wordArrays: [] });
+    } else {
+      let wa = editTheme.wordArrays;
+      if (typeof wa === 'string') wa = wa.split(',').map(s => s.trim()).filter(Boolean);
+      setThemeObj({ ...editTheme, wordArrays: wa });
+    }
   }, [editTheme]);
 
   return (
@@ -27,12 +39,21 @@ export default function ManageThemesModal({ isOpen, onRequestClose, customThemes
         </div>
 
         <div style={{ marginTop: 12 }}>
-          <label style={{ display: 'block', marginBottom: 6 }}>wordArrays (JSON)</label>
-          <textarea value={JSON.stringify(themeObj.wordArrays || {}, null, 2)} onChange={(e) => {
-            let parsed = {};
-            try { parsed = JSON.parse(e.target.value); } catch (err) { /* ignore parse error until save */ }
-            setThemeObj({ ...themeObj, wordArrays: parsed });
-          }} style={{ width: '100%', minHeight: 180, padding: 8 }} />
+          <label style={{ display: 'block', marginBottom: 6 }}>Words (comma separated)</label>
+          <textarea
+            value={Array.isArray(themeObj.wordArrays)
+              ? themeObj.wordArrays.join(', ')
+              : (typeof themeObj.wordArrays === 'string'
+                  ? themeObj.wordArrays
+                  : '')}
+            onChange={e => {
+              setThemeObj({
+                ...themeObj,
+                wordArrays: e.target.value.split(',').map(s => s.trim()).filter(Boolean)
+              });
+            }}
+            style={{ width: '100%', minHeight: 180, padding: 8 }}
+          />
         </div>
 
         <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
