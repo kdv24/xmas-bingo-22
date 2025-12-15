@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 
 // Minimal manage modal: edits a theme object shape { themeName, backgroundColor, wordArrays }
 export default function ManageThemesModal({ isOpen, onRequestClose, customThemes = [], editTheme = null, onSave }) {
+  const [saving, setSaving] = useState(false);
   const [themeObj, setThemeObj] = useState(() => {
     if (!editTheme) return { createdAt: '', themeName: '', backgroundColor: '', wordArrays: [] };
     // Always convert wordArrays to array if string
@@ -56,13 +57,37 @@ export default function ManageThemesModal({ isOpen, onRequestClose, customThemes
           />
         </div>
 
-        <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-          <button onClick={() => {
-            if (!themeObj.themeName) return alert('Please provide a theme name');
-            if (typeof onSave === 'function') onSave(themeObj);
-          }} style={{ background: '#10b981', color: '#fff', border: 'none', padding: '8px 12px', borderRadius: 8 }}>Save</button>
-          <button onClick={onRequestClose} style={{ background: '#e6e6e6', border: 'none', padding: '8px 12px', borderRadius: 8 }}>Cancel</button>
+        <div style={{ display: 'flex', gap: 8, marginTop: 12, alignItems: 'center' }}>
+          <button
+            onClick={async () => {
+              if (!themeObj.themeName) return alert('Please provide a theme name');
+              setSaving(true);
+              try {
+                if (typeof onSave === 'function') {
+                  const maybePromise = onSave(themeObj);
+                  if (maybePromise && typeof maybePromise.then === 'function') {
+                    await maybePromise;
+                  }
+                }
+              } finally {
+                setSaving(false);
+              }
+            }}
+            style={{ background: '#10b981', color: '#fff', border: 'none', padding: '8px 12px', borderRadius: 8, opacity: saving ? 0.7 : 1, cursor: saving ? 'not-allowed' : 'pointer' }}
+            disabled={saving}
+          >
+            {saving ? (
+              <span style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                <span className="spinner" style={{ marginRight: 8, display: 'inline-block', width: 16, height: 16, border: '2px solid #ccc', borderTop: '2px solid #38bdf8', borderRadius: '50%', animation: 'spin 1s linear infinite', verticalAlign: 'middle' }}></span>
+                Saving...
+              </span>
+            ) : 'Save'}
+          </button>
+          <button onClick={onRequestClose} style={{ background: '#e6e6e6', border: 'none', padding: '8px 12px', borderRadius: 8 }} disabled={saving}>Cancel</button>
         </div>
+        <style>{`
+          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        `}</style>
       </div>
     </Modal>
   );

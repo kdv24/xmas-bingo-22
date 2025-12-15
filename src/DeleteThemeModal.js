@@ -16,6 +16,7 @@ const DeleteThemeModal = ({
   loadThemesFromServer,
   deleteThemeFromServer,
   restoreTheme,
+  onThemesUpdated,
 }) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [serverThemes, setServerThemes] = useState(initialServerThemes);
@@ -213,6 +214,7 @@ const DeleteThemeModal = ({
             const next = stored.filter(t => t.themeName !== updated.themeName).concat(updated);
             localStorage.setItem('customThemes', JSON.stringify(next));
             // Save to server
+            let list = [];
             try {
               await editThemeOnServer(updated);
               showToast('Theme updated in Google Sheet', 'success');
@@ -221,9 +223,12 @@ const DeleteThemeModal = ({
             }
             // Refresh server themes
             try {
-              const list = await loadThemesFromServer();
+              list = await loadThemesFromServer();
               setServerThemes(list);
             } catch (e) {}
+            if (typeof onThemesUpdated === 'function') {
+              onThemesUpdated(list);
+            }
             setManageOpen(false);
           }}
         />

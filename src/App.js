@@ -389,6 +389,7 @@ function App() {
         restoreTheme={restoreTheme}
         loadThemesFromServer={loadThemesFromServer}
         deleteThemeFromServer={deleteThemeFromServer}
+        onThemesUpdated={themes => setServerThemes(themes)}
       />
             <div className="grid-5-by-5">
                 {finalArray.map((item, index) => {
