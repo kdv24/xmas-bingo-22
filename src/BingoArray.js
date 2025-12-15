@@ -6,7 +6,11 @@ export async function editThemeOnServer(theme) {
   form.append('themeData', JSON.stringify([
     theme.themeName,
     theme.backgroundColor || '',
-    JSON.stringify(theme.wordArrays || {})
+    Array.isArray(theme.wordArrays)
+      ? theme.wordArrays.join(', ')
+      : (typeof theme.wordArrays === 'object'
+          ? Object.values(theme.wordArrays).flat().join(', ')
+          : String(theme.wordArrays || ''))
     // Add more fields as needed to match your sheet structure
   ]));
   const res = await fetch(SCRIPT_URL, { method: 'POST', body: form });
