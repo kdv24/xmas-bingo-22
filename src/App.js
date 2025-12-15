@@ -230,6 +230,13 @@ function App() {
     const updatedThemes = customThemes.filter(theme => theme.themeName !== nameToDelete);
     setCustomThemes(updatedThemes);
     deleteThemeFromLocalStorage(nameToDelete);
+    // Refresh server themes after deletion
+    try {
+      const themes = await loadThemesFromServer();
+      setServerThemes(themes);
+    } catch (e) {
+      // fallback: don't update
+    }
     setIsDeleteModalOpen(false);
     if (theme === nameToDelete) {
       setTheme('Christmas');
