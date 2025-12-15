@@ -350,11 +350,18 @@ input:checked + .slider::before {
   transform: translate(-50%, -50%);
   width: 80%;
   max-width: 600px;
+  max-height: 90vh;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+.modal-content {
+  overflow-y: auto;
+  max-height: 70vh;
 }
 
 .modal h2 {

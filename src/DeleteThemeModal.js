@@ -60,7 +60,7 @@ const DeleteThemeModal = ({
             aria-label="Close"
           >✕</button>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20 }}>
+        <div>
           <div style={{ borderRadius: 10, padding: 16, background: '#fff', minHeight: 320, boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
               <div style={{ fontSize: 15, color: '#222', fontWeight: 700 }}>
